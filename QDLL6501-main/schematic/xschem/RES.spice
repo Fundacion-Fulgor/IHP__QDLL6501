@@ -1,16 +1,19 @@
-** sch_path: /home/designer/shared/2026/Cells/RES.sch
-.subckt RES ROUT RIN
-*.PININFO RIN:I ROUT:O
-R1 net1 RIN  rppd w=1e-6 l=10e-6 m=1 b=0
-R3 net2 net1 rppd w=1e-6 l=10e-6 m=1 b=0
-R4 net3 net2 rppd w=1e-6 l=10e-6 m=1 b=0
-R5 net4 net3  rppd w=1e-6 l=10e-6 m=1 b=0
-R2 net5 net4  rppd w=1e-6 l=10e-6 m=1 b=0
-R6 net6 net5  rppd w=1e-6 l=10e-6 m=1 b=0
-R7 net7 net6  rppd w=1e-6 l=10e-6 m=1 b=0
-R8 net8 net7  rppd w=1e-6 l=10e-6 m=1 b=0
-R9 net9 net8  rppd w=1e-6 l=10e-6 m=1 b=0
-R10 net10 net9  rppd w=1e-6 l=10e-6 m=1 b=0
-R11 net11 net10  rppd w=1e-6 l=10e-6 m=1 b=0
-R12 ROUT net11  rppd w=1e-6 l=10e-6 m=1 b=0
+** sch_path: QDLL6501-main/schematic/xschem/RES.sch
+.subckt RES ROUT RIN VSS
+*.ipin RIN
+*.opin ROUT
+*.iopin VSS
+XR13 net1 RIN VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR1 net2 net1 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR2 net3 net2 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR3 net4 net3 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR4 net5 net4 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR5 net6 net5 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR6 net7 net6 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR7 net8 net7 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR8 net9 net8 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR9 net10 net9 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR10 net11 net10 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR11 ROUT net11 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
 .ends
+.end

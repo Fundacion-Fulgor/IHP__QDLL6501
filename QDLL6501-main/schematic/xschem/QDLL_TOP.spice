@@ -1,22 +1,52 @@
-** sch_path: /home/designer/designs/libs/Cells/QDLL_TOP.sch
+** sch_path: QDLL6501-main/schematic/xschem/QDLL_TOP.sch
 .subckt QDLL_TOP VDD VSS IN1 OUT1 OUT2 IN2 CPOUT2 VCONT2 IN3 OUT3
-*.PININFO VDD:B VSS:B IN1:I IN2:I OUT1:O OUT2:O CPOUT2:O VCONT2:I OUT3:O IN3:I
+*.iopin VDD
+*.iopin VSS
+*.ipin IN1
+*.ipin IN2
+*.opin OUT1
+*.opin OUT2
+*.opin CPOUT2
+*.ipin VCONT2
+*.opin OUT3
+*.ipin IN3
+x2 VDD IN1 net1 net3 VSS VCDL
+x5 VDD IN2 net4 VCONT2 VSS VCDL
+x1 VSS VDD net4 OUT2 DLine
 x3 VSS VDD IN3 OUT3 DLine
 x4 VSS VDD net1 OUT1 DLine
-x5 VDD IN1 net1 net3 VSS VCDL
-x6 net2 net3 VSS CP
+x6 VDD VSS IN2 net5 OUT2 PD
 x7 VDD VSS IN1 net2 OUT1 PD
-x1 VSS VDD net4 OUT2 DLine
-x8 VDD IN2 net4 VCONT2 VSS VCDL
+x8 net2 net3 VSS CP
 x9 net5 CPOUT2 VSS CP
-x10 VDD VSS IN2 net5 OUT2 PD
 .ends
 
-* expanding   symbol:  Cells/DLine.sym # of pins=4
-** sym_path: /home/designer/designs/libs/Cells/DLine.sym
-** sch_path: /home/designer/designs/libs/Cells/DLine.sch
+* expanding   symbol:  VCDL.sym # of pins=5
+** sym_path: QDLL6501-main/schematic/xschem/VCDL.sym
+** sch_path: QDLL6501-main/schematic/xschem/VCDL.sch
+.subckt VCDL VDD VIN VOUT VCONT VSS
+*.iopin VDD
+*.iopin VSS
+*.ipin VIN
+*.ipin VCONT
+*.opin VOUT
+XM1 VOUT VIN net3 VSS sg13_lv_nmos w=2u l=0.13u ng=1 m=1 mm_ok=1
+XM2 net3 VCONT VSS VSS sg13_lv_nmos w=3.5u l=0.18u ng=1 m=1 mm_ok=1
+XM3 net1 VCONT VSS VSS sg13_lv_nmos w=2u l=0.25u ng=1 m=1 mm_ok=1
+XM4 VOUT VIN net2 VDD sg13_lv_pmos w=4.46u l=0.13u ng=1 m=1 mm_ok=1
+XM5 net2 net1 VDD VDD sg13_lv_pmos w=2.24u l=0.13u ng=1 m=1 mm_ok=1
+XM6 net1 net1 VDD VDD sg13_lv_pmos w=2.24u l=0.13u ng=1 m=1 mm_ok=1
+.ends
+
+
+* expanding   symbol:  DLine.sym # of pins=4
+** sym_path: QDLL6501-main/schematic/xschem/DLine.sym
+** sch_path: QDLL6501-main/schematic/xschem/DLine.sch
 .subckt DLine VSS VDD VIN VOUT
-*.PININFO VOUT:O VIN:I VDD:B VSS:B
+*.opin VOUT
+*.ipin VIN
+*.iopin VDD
+*.iopin VSS
 x2 net1 net4 VDD VSS sg13g2_inv_4
 x3 net2 net1 VDD VSS sg13g2_inv_8
 x4 VOUT net2 VDD VSS sg13g2_inv_16
@@ -25,146 +55,50 @@ x6 net4 net3 VDD VSS sg13g2_dlygate4sd2_1
 .ends
 
 
-* expanding   symbol:  Cells/VCDL.sym # of pins=5
-** sym_path: /home/designer/designs/libs/Cells/VCDL.sym
-** sch_path: /home/designer/designs/libs/Cells/VCDL.sch
-.subckt VCDL VDD VIN VOUT VCONT VSS
-*.PININFO VDD:B VSS:B VIN:I VCONT:I VOUT:O
-MM1 VOUT VIN net3 VSS sg13_lv_nmos w=2u l=0.13u ng=1 m=1
-MM2 net3 VCONT VSS VSS sg13_lv_nmos w=3.5u l=0.18u ng=1 m=1
-MM3 net1 VCONT VSS VSS sg13_lv_nmos w=2u l=0.25u ng=1 m=1
-MM4 VOUT VIN net2 VDD sg13_lv_pmos w=4.46u l=0.13u ng=1 m=1
-MM5 net2 net1 VDD VDD sg13_lv_pmos w=2.24u l=0.13u ng=1 m=1
-MM6 net1 net1 VDD VDD sg13_lv_pmos w=2.24u l=0.13u ng=1 m=1
-.ends
-
-
-* expanding   symbol:  Cells/CP.sym # of pins=3
-** sym_path: /home/designer/designs/libs/Cells/CP.sym
-** sch_path: /home/designer/designs/libs/Cells/CP.sch
-.subckt CP CPIN CPOUT VSS
-*.PININFO VSS:B CPIN:I CPOUT:O
-CC1 CPOUT VSS cap_cmim w=60e-6 l=20e-6 m=1
-x1 CPOUT CPIN RES
-.ends
-
-
-* expanding   symbol:  Cells/PD.sym # of pins=5
-** sym_path: /home/designer/designs/libs/Cells/PD.sym
-** sch_path: /home/designer/designs/libs/Cells/PD.sch
+* expanding   symbol:  PD.sym # of pins=5
+** sym_path: QDLL6501-main/schematic/xschem/PD.sym
+** sch_path: QDLL6501-main/schematic/xschem/PD.sch
 .subckt PD VDD VSS PDIN1 PDOUT PDIN2
-*.PININFO VDD:B VSS:B PDOUT:O PDIN1:I PDIN2:I
+*.iopin VDD
+*.iopin VSS
+*.opin PDOUT
+*.ipin PDIN1
+*.ipin PDIN2
 x1 PDOUT PDIN1 PDIN2 VDD VSS sg13g2_xor2_1
 .ends
 
 
-* expanding   symbol:  Cells/RES.sym # of pins=2
-** sym_path: /home/designer/designs/libs/Cells/RES.sym
-** sch_path: /home/designer/designs/libs/Cells/RES.sch
-.subckt RES ROUT RIN
-*.PININFO RIN:I ROUT:O
-RR13 net1 RIN -72 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0 m=1
-RR1 net2 net1 -72 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0 m=1
-RR2 net3 net2 -72 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0 m=1
-RR3 net4 net3 -72 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0 m=1
-RR4 net5 net4 -72 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0 m=1
-RR5 net6 net5 -72 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0 m=1
-RR6 net7 net6 -72 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0 m=1
-RR7 net8 net7 -72 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0 m=1
-RR8 net9 net8 -72 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0 m=1
-RR9 net10 net9 -72 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0 m=1
-RR10 net11 net10 -72 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0 m=1
-RR11 ROUT net11 -72 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0 m=1
+* expanding   symbol:  CP.sym # of pins=3
+** sym_path: QDLL6501-main/schematic/xschem/CP.sym
+** sch_path: QDLL6501-main/schematic/xschem/CP.sch
+.subckt CP CPIN CPOUT VSS
+*.iopin VSS
+*.ipin CPIN
+*.opin CPOUT
+XC1 CPOUT VSS cap_cmim w=60e-6 l=20e-6 m=1 mm_ok=1
+x1 CPOUT CPIN VSS RES
 .ends
 
 
-* Library name: sg13g2_stdcell
-* Cell name: sg13g2_dlygate4sd3_1
-* View name: schematic
-.subckt sg13g2_dlygate4sd3_1 X A VDD VSS
-MP3 X net3 VDD VDD sg13_lv_pmos w=1.12u l=130.00n ng=1 ad=3.808e-13 as=3.808e-13 pd=2.92e-06 ps=2.92e-06 m=1
-MP2 net3 net2 VDD VDD sg13_lv_pmos w=1.000u l=500.0n ng=1 ad=3.4e-13 as=3.4e-13 pd=2.68e-06 ps=2.68e-06 m=1
-MP1 net2 net1 VDD VDD sg13_lv_pmos w=1.000u l=500.0n ng=1 ad=3.4e-13 as=3.4e-13 pd=2.68e-06 ps=2.68e-06 m=1
-MP0 net1 A VDD VDD sg13_lv_pmos w=420.00n l=130.00n ng=1 ad=1.428e-13 as=1.428e-13 pd=1.52e-06 ps=1.52e-06 m=1
-MN3 X net3 VSS VSS sg13_lv_nmos w=740.00n l=130.00n ng=1 ad=2.516e-13 as=2.516e-13 pd=2.16e-06 ps=2.16e-06 m=1
-MN2 net3 net2 VSS VSS sg13_lv_nmos w=420.00n l=500.0n ng=1 ad=1.428e-13 as=1.428e-13 pd=1.52e-06 ps=1.52e-06 m=1
-MN1 net2 net1 VSS VSS sg13_lv_nmos w=420.00n l=500.0n ng=1 ad=1.428e-13 as=1.428e-13 pd=1.52e-06 ps=1.52e-06 m=1
-MN0 net1 A VSS VSS sg13_lv_nmos w=420.00n l=130.00n ng=1 ad=1.428e-13 as=1.428e-13 pd=1.52e-06 ps=1.52e-06 m=1
+* expanding   symbol:  RES.sym # of pins=3
+** sym_path: QDLL6501-main/schematic/xschem/RES.sym
+** sch_path: QDLL6501-main/schematic/xschem/RES.sch
+.subckt RES ROUT RIN VSS
+*.ipin RIN
+*.opin ROUT
+*.iopin VSS
+XR13 net1 RIN VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR1 net2 net1 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR2 net3 net2 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR3 net4 net3 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR4 net5 net4 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR5 net6 net5 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR6 net7 net6 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR7 net8 net7 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR8 net9 net8 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR9 net10 net9 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR10 net11 net10 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR11 ROUT net11 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
 .ends
-* End of subcircuit definition.
 
-* Library name: sg13g2_stdcell
-* Cell name: sg13g2_dlygate4sd2_1
-* View name: schematic
-.subckt sg13g2_dlygate4sd2_1 X A VDD VSS
-MP3 X net3 VDD VDD sg13_lv_pmos w=1.12u l=130.00n ng=1 ad=3.808e-13 as=3.808e-13 pd=2.92e-06 ps=2.92e-06 m=1
-MP2 net3 net2 VDD VDD sg13_lv_pmos w=1.000u l=250.00n ng=1 ad=3.4e-13 as=3.4e-13 pd=2.68e-06 ps=2.68e-06 m=1
-MP1 net2 net1 VDD VDD sg13_lv_pmos w=1.000u l=250.00n ng=1 ad=3.4e-13 as=3.4e-13 pd=2.68e-06 ps=2.68e-06 m=1
-MP0 net1 A VDD VDD sg13_lv_pmos w=420.00n l=130.00n ng=1 ad=1.428e-13 as=1.428e-13 pd=1.52e-06 ps=1.52e-06 m=1
-MN3 X net3 VSS VSS sg13_lv_nmos w=740.00n l=130.00n ng=1 ad=2.516e-13 as=2.516e-13 pd=2.16e-06 ps=2.16e-06 m=1
-MN2 net3 net2 VSS VSS sg13_lv_nmos w=420.00n l=180.00n ng=1 ad=1.428e-13 as=1.428e-13 pd=1.52e-06 ps=1.52e-06 m=1
-MN1 net2 net1 VSS VSS sg13_lv_nmos w=420.00n l=180.00n ng=1 ad=1.428e-13 as=1.428e-13 pd=1.52e-06 ps=1.52e-06 m=1
-MN0 net1 A VSS VSS sg13_lv_nmos w=420.00n l=130.00n ng=1 ad=1.428e-13 as=1.428e-13 pd=1.52e-06 ps=1.52e-06 m=1
-.ends
-* End of subcircuit definition.
-
-
-* Library name: sg13g2_stdcell
-* Cell name: sg13g2_inv_4
-* View name: schematic
-.subckt sg13g2_inv_4 Y A VDD VSS
-MP0 Y A VDD VDD sg13_lv_pmos w=4.48u l=130.00n ng=4 ad=8.512e-13 as=1.187e-12 pd=6e-06 ps=8.84e-06 m=1
-MN0 Y A VSS VSS sg13_lv_nmos w=2.96u l=130.00n ng=4 ad=5.624e-13 as=7.844e-13 pd=4.48e-06 ps=6.56e-06 m=1
-.ends
-* End of subcircuit definition.
-
-
-* Library name: sg13g2_stdcell
-* Cell name: sg13g2_inv_8
-* View name: schematic
-.subckt sg13g2_inv_8 Y A VDD VSS
-MN1 Y A VSS VSS sg13_lv_nmos w=5.92u l=130.00n ng=8 ad=1.125e-12 as=1.347e-12 pd=8.96e-06 ps=1.104e-05 m=1
-MP0 Y A VDD VDD sg13_lv_pmos w=8.96u l=130.00n ng=8 ad=1.702e-12 as=2.038e-12 pd=1.2e-05 ps=1.484e-05 m=1
-.ends
-* End of subcircuit definition.
-
-* Library name: sg13g2_stdcell
-* Cell name: sg13g2_inv_16
-* View name: schematic
-.subckt sg13g2_inv_16 Y A VDD VSS
-MN1 Y A VSS VSS sg13_lv_nmos w=11.84u l=130.00n ng=16 ad=2.25e-12 as=2.472e-12 pd=1.792e-05 ps=2e-05 m=1
-MP0 Y A VDD VDD sg13_lv_pmos w=17.92u l=130.00n ng=16 ad=3.405e-12 as=3.741e-12 pd=2.4e-05 ps=2.684e-05 m=1
-.ends
-* End of subcircuit definition.
-
-* Library name: sg13g2_stdcell
-* Cell name: sg13g2_inv_1
-* View name: schematic
-.subckt sg13g2_inv_1 Y A VDD VSS
-MN1 Y A VSS VSS sg13_lv_nmos w=740.00n l=130.00n ng=1 ad=2.516e-13 as=2.516e-13 pd=2.16e-06 ps=2.16e-06 m=1
-MP0 Y A VDD VDD sg13_lv_pmos w=1.12u l=130.00n ng=1 ad=3.808e-13 as=3.808e-13 pd=2.92e-06 ps=2.92e-06 m=1
-.ends
-* End of subcircuit definition.
-
-
-
-
-
-
-* Library name: sg13g2_stdcell
-* Cell name: sg13g2_xor2_1
-* View name: schematic
-.subckt sg13g2_xor2_1 X A B VDD VSS
-MN0 net1 A VSS VSS sg13_lv_nmos w=550.00n l=130.00n ng=1 ad=1.87e-13 as=1.87e-13 pd=1.78e-06 ps=1.78e-06 m=1
-MN4 X B net3 VSS sg13_lv_nmos w=740.00n l=130.00n ng=1 ad=2.516e-13 as=2.516e-13 pd=2.16e-06 ps=2.16e-06 m=1
-MN6 X net1 VSS VSS sg13_lv_nmos w=740.00n l=130.00n ng=1 ad=2.516e-13 as=2.516e-13 pd=2.16e-06 ps=2.16e-06 m=1
-MN8 net3 A VSS VSS sg13_lv_nmos w=740.00n l=130.00n ng=1 ad=2.516e-13 as=2.516e-13 pd=2.16e-06 ps=2.16e-06 m=1
-MN9 net1 B VSS VSS sg13_lv_nmos w=550.00n l=130.00n ng=1 ad=1.87e-13 as=1.87e-13 pd=1.78e-06 ps=1.78e-06 m=1
-MP1 net6 A VDD VDD sg13_lv_pmos w=1.000u l=130.00n ng=1 ad=3.4e-13 as=3.4e-13 pd=2.68e-06 ps=2.68e-06 m=1
-MP2 net1 B net6 VDD sg13_lv_pmos w=1.000u l=130.00n ng=1 ad=3.4e-13 as=3.4e-13 pd=2.68e-06 ps=2.68e-06 m=1
-MP3 net5 A VDD VDD sg13_lv_pmos w=1.12u l=130.00n ng=1 ad=3.808e-13 as=3.808e-13 pd=2.92e-06 ps=2.92e-06 m=1
-MP5 net5 B VDD VDD sg13_lv_pmos w=1.12u l=130.00n ng=1 ad=3.808e-13 as=3.808e-13 pd=2.92e-06 ps=2.92e-06 m=1
-MP7 X net1 net5 VDD sg13_lv_pmos w=1.12u l=130.00n ng=1 ad=3.808e-13 as=3.808e-13 pd=2.92e-06 ps=2.92e-06 m=1
-.ends
-* End of subcircuit definition.
-.ends
+.end

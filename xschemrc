@@ -1,0 +1,18 @@
+set SCRIPT_DIR [file dirname [file normalize [info script]]]
+set env(PDK) ihp-sg13g2
+if {![info exists env(PDK_ROOT)] || ![file exists $env(PDK_ROOT)/$env(PDK)/libs.tech/xschem/xschemrc]} {
+    set env(PDK_ROOT) $SCRIPT_DIR/IHP-Open-PDK
+}
+set PDK_ROOT $env(PDK_ROOT)
+set PDK $env(PDK)
+if {![file exists $PDK_ROOT/$PDK/libs.tech/xschem/xschemrc]} {
+    puts "ERROR: IHP-Open-PDK is unavailable."
+    puts "Set PDK_ROOT or run: git submodule update --init --recursive"
+    exit 1
+}
+source $PDK_ROOT/$PDK/libs.tech/xschem/xschemrc
+append XSCHEM_LIBRARY_PATH :$SCRIPT_DIR/QDLL6501-main/schematic/xschem
+append XSCHEM_LIBRARY_PATH :$PDK_ROOT/$PDK/libs.ref/sg13g2_pr/xschem
+append XSCHEM_LIBRARY_PATH :$PDK_ROOT/$PDK/libs.ref/sg13g2_stdcell/xschem
+append XSCHEM_LIBRARY_PATH :$PDK_ROOT/$PDK/libs.tech/xschem/sg13g2_pr
+set netlist_dir $SCRIPT_DIR/QDLL6501-main/schematic/xschem

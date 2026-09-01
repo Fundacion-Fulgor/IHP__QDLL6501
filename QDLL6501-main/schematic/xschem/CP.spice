@@ -1,32 +1,31 @@
-** sch_path: /home/designer/shared/2026/Cells/CP.sch
+** sch_path: QDLL6501-main/schematic/xschem/CP.sch
 .subckt CP CPIN CPOUT VSS
-*.PININFO VSS:B CPIN:I CPOUT:O
-C1 CPOUT VSS cap_cmim w=60e-6 l=20e-6 m=1
-x4 CPOUT CPIN RES
+*.iopin VSS
+*.ipin CPIN
+*.opin CPOUT
+XC1 CPOUT VSS cap_cmim w=60e-6 l=20e-6 m=1 mm_ok=1
+x1 CPOUT CPIN VSS RES
 .ends
 
-** sch_path: /home/designer/shared/2026/Cells/RES.sch
-.subckt RES ROUT RIN
-*.PININFO RIN:I ROUT:O
-R1 net1 RIN  rppd w=1e-6 l=10e-6 m=1 b=0
-R3 net2 net1 rppd w=1e-6 l=10e-6 m=1 b=0
-R4 net3 net2  rppd w=1e-6 l=10e-6 m=1 b=0
-R5 net4 net3  rppd w=1e-6 l=10e-6 m=1 b=0
-R2 net5 net4  rppd w=1e-6 l=10e-6 m=1 b=0
-R6 net6 net5  rppd w=1e-6 l=10e-6 m=1 b=0
-R7 net7 net6 rppd w=1e-6 l=10e-6 m=1 b=0
-R8 net8 net7  rppd w=1e-6 l=10e-6 m=1 b=0
-R9 net9 net8 rppd w=1e-6 l=10e-6 m=1 b=0
-R10 net10 net9  rppd w=1e-6 l=10e-6 m=1 b=0
-R11 net11 net10  rppd w=1e-6 l=10e-6 m=1 b=0
-R12 ROUT net11  rppd w=1e-6 l=10e-6 m=1 b=0
-R14 VSS sub! ptap1 A=6.084e-13 P=3.12e-06
-R13 VSS sub! ptap1 A=6.084e-13 P=3.12e-06
-R15 VSS sub! ptap1 A=6.084e-13 P=3.12e-06
-R16 VSS sub! ptap1 A=6.084e-13 P=3.12e-06
-R17 VSS sub! ptap1 A=6.084e-13 P=3.12e-06
-R18 VSS sub! ptap1 A=6.084e-13 P=3.12e-06
+* expanding   symbol:  RES.sym # of pins=3
+** sym_path: QDLL6501-main/schematic/xschem/RES.sym
+** sch_path: QDLL6501-main/schematic/xschem/RES.sch
+.subckt RES ROUT RIN VSS
+*.ipin RIN
+*.opin ROUT
+*.iopin VSS
+XR13 net1 RIN VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR1 net2 net1 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR2 net3 net2 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR3 net4 net3 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR4 net5 net4 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR5 net6 net5 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR6 net7 net6 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR7 net8 net7 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR8 net9 net8 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR9 net10 net9 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR10 net11 net10 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
+XR11 ROUT net11 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
 .ends
-.GLOBAL sub!
-.GLOBAL VSS
 
+.end

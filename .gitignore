@@ -1,0 +1,16 @@
+*.raw
+*.bak
+*~
+.DS_Store
+backups/
+*.backup
+runs/
+__pycache__/
+*.pyc
+.venv/
+*.swp
+*.swo
+/QDLL6501-main/schematic/xschem/schematic/
+/doc/QDLL_TOP*.md
+/doc/QDLL_TOP*.png
+/doc/QDLL_TOP*.svg
