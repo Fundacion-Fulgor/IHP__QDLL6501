@@ -19,6 +19,7 @@ N 860 0 900 0 {lab=#net11}
 N 960 0 1010 0 {lab=ROUT}
 C {ipin.sym} -210 0 0 0 {name=p1 lab=RIN}
 C {opin.sym} 1010 0 0 0 {name=p5 lab=ROUT}
+C {iopin.sym} -210 80 0 0 {name=p2 lab=VSS}
 C {sg13g2_pr/rppd.sym} -130 0 1 0 {name=R13
 w=1e-6
 l=10e-6

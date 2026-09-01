@@ -42,4 +42,5 @@ l=20e-6
 m=1
 spiceprefix=X
 spice_ignore=true}
-C {IHP__MPC0349/dependencies/IHP__QDLL6501/QDLL6501-main/schematic/xschem/RES.sym} -580 0 0 0 {name=x1}
+C {RES.sym} -580 0 0 0 {name=x1}
+C {lab_pin.sym} -580 40 1 0 {name=p4 sig_type=std_logic lab=VSS}

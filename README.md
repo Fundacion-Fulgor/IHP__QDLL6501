@@ -49,6 +49,32 @@ The design features two parallel delay-locked loops (DLLs) targeting timing alig
 - [Netgen](http://opencircuitdesign.com/netgen/)
 - [OpenPDK (SG13G2)](https://github.com/IHP-GmbH/IHP-Open-PDK)
 
+## Reproducible setup
+
+Initialize the pinned PDK dependency after cloning:
+
+```bash
+git submodule update --init --recursive
+```
+
+Launch Xschem from the repository root so it loads the project `xschemrc`:
+
+```bash
+xschem QDLL6501-main/schematic/xschem/QDLL_TOP.sch
+```
+
+The target-adapted CACE 5.2 datasheet is `cace/QDLL_TOP.yaml` and was validated with CACE 2.9.0. Its ngspice templates characterize VCDL delay, current consumption, and phase-detector gain across the specified 225–275 MHz, 1.14–1.26 V, and 0/65/125 °C conditions. A nominal 250 MHz, 1.2 V, 65 °C smoke run passes; the full declared PVT matrix remains to be run. SG13G2 transistor simulation requires ngspice 40+ with OSDI enabled and compiled PSP103 models in the PDK.
+
+Run characterization with the pinned PDK explicitly selected:
+
+```bash
+export PDK_ROOT="$PWD/IHP-Open-PDK"
+export PDK=ihp-sg13g2
+cace cace/QDLL_TOP.yaml -s schematic
+```
+
+Xschem uses a valid external `PDK_ROOT` when supplied and otherwise falls back to the pinned submodule.
+
 ---
 
 ## 📐 QDLL Specifications
@@ -106,6 +132,8 @@ The design features two parallel delay-locked loops (DLLs) targeting timing alig
 
 - ✅ Schematic design and functional simulations completed.
 - ✅ Layout of core blocks DRC/LVS completed.
+- Full SG13G2 DRC of `release/v.1.0.0/gds/QDLL_TOP.gds` currently reports violations in nine rule categories.
+- Release GDS/netlist artifacts predate the current source schematic and require regeneration and signoff together.
 - 🔄 Post-Layout Simulations In Progress.
 
 - 

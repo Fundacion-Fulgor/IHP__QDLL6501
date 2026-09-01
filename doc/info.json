@@ -7,12 +7,14 @@
   "trl": 0,
   "sealring_x": 1.0,
   "sealring_y": 1.0,
-  "repository": "",
-  "pdk_version": "",
+  "repository": "https://github.com/leonardovazquez/IHP__QDLL6501",
+  "pdk_version": "8d3ee38d4540ed675d3ac08332a51f75258fc3a7",
   "process": "SG13CMOS",
   "dependencies": {},
-  "tools": {},
-  "top_cell_name": "QDLL6501",
+  "tools": {
+    "cace": "2.9.0"
+  },
+  "top_cell_name": "QDLL_TOP",
   "release": {
     "version": "v.1.0.0",
     "gds": "release/v.1.0.0/gds",

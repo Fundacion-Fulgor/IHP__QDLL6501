@@ -1,0 +1,4 @@
+[submodule "IHP-Open-PDK"]
+	path = IHP-Open-PDK
+	url = https://github.com/KrzysztofHerman/IHP-Open-PDK.git
+	branch = IO-xschem

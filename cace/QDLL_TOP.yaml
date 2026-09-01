@@ -1,0 +1,219 @@
+name: QDLL_TOP
+description: 250 MHz quadrature delay-locked loop for IHP SG13G2
+PDK: ihp-sg13g2
+cace_format: 5.2
+authorship:
+  designer: Leonardo Vazquez, Martin Doric, Clemente Molinari, Santiago Basignana, Matias Schulthess, Mateo Buteler
+  company: Fundacion Fulgor
+  creation_date: January 2026
+  license: Apache 2.0
+paths:
+  root: ..
+  schematic: QDLL6501-main/schematic/xschem
+  layout: release/v.1.0.0/gds
+  netlist: QDLL6501-main/schematic/xschem
+  documentation: doc
+layout:
+  gds_filename: QDLL_TOP.gds
+pins:
+  VDD:
+    description: Positive power supply
+    direction: inout
+    type: power
+    Vmin: 1.14
+    Vmax: 1.26
+  VSS:
+    description: Ground supply
+    direction: inout
+    type: ground
+  IN1:
+    description: Reference clock input for the internally controlled DLL path
+    direction: input
+    type: signal
+  OUT1:
+    description: Delayed clock output from the internally controlled DLL path
+    direction: output
+    type: signal
+  OUT2:
+    description: Delayed clock output from the externally controlled DLL path
+    direction: output
+    type: signal
+  IN2:
+    description: Reference clock input for the externally controlled DLL path
+    direction: input
+    type: signal
+  CPOUT2:
+    description: Phase-detector and charge-pump output for the externally controlled DLL path
+    direction: output
+    type: signal
+  VCONT2:
+    description: External VCDL control voltage for the second DLL path
+    direction: input
+    type: signal
+  IN3:
+    description: Input for the fixed delay-line monitor path
+    direction: input
+    type: signal
+  OUT3:
+    description: Output from the fixed delay-line monitor path
+    direction: output
+    type: signal
+default_conditions:
+  vdd:
+    description: Power supply voltage
+    display: Vdd
+    unit: V
+    typical: 1.2
+  temperature:
+    description: Ambient temperature
+    display: Temp
+    unit: °C
+    typical: 65
+  corner:
+    description: Process corner
+    display: Corner
+    typical: tt
+  fin:
+    description: Input frequency
+    display: Fin
+    unit: MHz
+    typical: 250
+  cload:
+    description: Output load capacitance
+    display: CLoad
+    unit: fF
+    typical: 100
+parameters:
+  vcdl_delay:
+    description: VCDL delay range measurement
+    display: VCDL Delay
+    spec:
+      delay_min:
+        display: Minimum Delay
+        unit: ps
+        minimum:
+          value: any
+        typical:
+          value: any
+        maximum:
+          value: any
+      delay_max:
+        display: Maximum Delay
+        unit: ps
+        minimum:
+          value: any
+        typical:
+          value: any
+        maximum:
+          value: any
+      delay_range:
+        display: Delay Range
+        unit: ps
+        minimum:
+          value: any
+        typical:
+          value: any
+        maximum:
+          value: any
+    tool:
+      ngspice:
+        template: tb_vcdl_delay.sch
+        format: ascii
+        suffix: .data
+        variables: [delay_min, delay_max, delay_range]
+    conditions:
+      corner:
+        enumerate: [tt, ff, ss]
+      temperature:
+        enumerate: [0, 65, 125]
+      vdd:
+        minimum: 1.14
+        typical: 1.2
+        maximum: 1.26
+      fin:
+        minimum: 225
+        typical: 250
+        maximum: 275
+  power_consumption:
+    description: Static and dynamic current consumption
+    display: Power
+    spec:
+      idd_static:
+        display: Static Current
+        unit: uA
+        minimum:
+          value: any
+        typical:
+          value: any
+        maximum:
+          value: any
+      idd_dynamic:
+        display: Dynamic Current
+        unit: mA
+        minimum:
+          value: any
+        typical:
+          value: any
+        maximum:
+          value: any
+    tool:
+      ngspice:
+        template: tb_power.sch
+        format: ascii
+        suffix: .data
+        variables: [idd_static, idd_dynamic]
+    conditions:
+      corner:
+        enumerate: [tt, ff, ss]
+      temperature:
+        enumerate: [0, 65, 125]
+      vdd:
+        minimum: 1.14
+        typical: 1.2
+        maximum: 1.26
+      fin:
+        minimum: 225
+        typical: 250
+        maximum: 275
+  phase_detector:
+    description: XOR phase-detector gain at 45 degrees phase offset
+    display: Phase Detector
+    spec:
+      pd_gain:
+        display: PD Gain
+        unit: V/rad
+        minimum:
+          value: any
+        typical:
+          value: any
+        maximum:
+          value: any
+    tool:
+      ngspice:
+        template: tb_pd.sch
+        format: ascii
+        suffix: .data
+        variables: [pd_gain]
+    conditions:
+      corner:
+        enumerate: [tt, ff, ss]
+      temperature:
+        enumerate: [0, 65, 125]
+      vdd:
+        minimum: 1.14
+        typical: 1.2
+        maximum: 1.26
+      fin:
+        minimum: 225
+        typical: 250
+        maximum: 275
+  klayout_drc:
+    description: KLayout DRC
+    display: KLayout DRC
+    spec:
+      drc_errors:
+        maximum:
+          value: 0
+    tool:
+      klayout_drc:
+        args: ['-rd', 'feol=true', '-rd', 'beol=true', '-rd', 'offgrid=true']
