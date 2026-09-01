@@ -100,5 +100,3 @@ XR9 net10 net9 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
 XR10 net11 net10 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
 XR11 ROUT net11 VSS rppd w=1e-6 l=10e-6 m=1 b=0 mm_ok=1
 .ends
-
-.end
