@@ -51,7 +51,7 @@ value="
 spice_ignore=true}
 C {devices/vsource.sym} -370 230 0 0 {name=Vcont1 value="PWL(100n 0 200n 1.2)"
 spice_ignore=true}
-C {/foss/designs/DLL/2026/Cells/VCDL.sym} 0 0 0 0 {name=x1}
+C {VCDL.sym} 0 0 0 0 {name=x1}
 C {vsource.sym} -600 70 0 0 {name=V3 value=1.2 savecurrent=false}
 C {gnd.sym} -600 120 0 0 {name=l6 lab=GND}
 C {lab_pin.sym} -600 40 2 0 {name=p3 sig_type=std_logic lab=VDD}
@@ -189,11 +189,11 @@ value="
 spice_ignore=true}
 C {vsource.sym} -290 230 0 0 {name=V1 value=0.1 savecurrent=false
 }
-C {/foss/designs/DLL/2026/Cells/DLine.sym} 350 0 0 0 {name=x2}
+C {DLine.sym} 350 0 0 0 {name=x2}
 C {lab_pin.sym} 350 -110 2 0 {name=p13 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 350 120 2 0 {name=p14 sig_type=std_logic lab=VSS}
-C {/foss/designs/DLL/2026/Cells/PD.sym} 60 350 0 0 {name=x3}
-C {/foss/designs/DLL/2026/Cells/CP.sym} 340 350 0 0 {name=x4}
+C {PD.sym} 60 350 0 0 {name=x3}
+C {CP.sym} 340 350 0 0 {name=x4}
 C {lab_pin.sym} 200 500 2 0 {name=p15 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 60 230 2 0 {name=p16 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 200 320 1 0 {name=p19 sig_type=std_logic lab=PDOUT}
@@ -210,5 +210,5 @@ value="
 .lib cornerCAP.lib cap_typ
 .include diodes.lib
 .include sg13g2_bondpad.lib
-.include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+.include $::env(PDK_ROOT)/$::env(PDK)/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
 "}

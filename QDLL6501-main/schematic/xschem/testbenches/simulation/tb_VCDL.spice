@@ -1,4 +1,4 @@
-** sch_path: /foss/designs/DLL/2026/testbenchs/tb_VCDL.sch
+** sch_path: QDLL6501-main/schematic/xschem/testbenches/tb_VCDL.sch
 **.subckt tb_VCDL
 Vin VIN VSS PULSE(0 1.2 0 10p 10p 0.99n 2n)
 C1 VOUT VSS 100f m=1

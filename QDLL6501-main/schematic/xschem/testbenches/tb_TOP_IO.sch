@@ -237,7 +237,7 @@ value="
 .lib cornerCAP.lib cap_typ
 .include diodes.lib
 .include sg13g2_bondpad.lib
-.include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+.include $::env(PDK_ROOT)/$::env(PDK)/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
 "}
 C {devices/code_shown.sym} -1540 -250 0 0 {name=NGSPICE only_toplevel=true 
 value="
@@ -329,7 +329,7 @@ size=80u
 shape=0
 padtype=0
 }
-C {/foss/designs/DLL/2026/Cells/TOP.sym} 20 -150 0 0 {name=x17
+C {QDLL_TOP.sym} 20 -150 0 0 {name=x17
 }
 C {lab_pin.sym} 570 -200 1 0 {name=p13 sig_type=std_logic lab=out_a}
 C {vsource.sym} -900 140 0 0 {name=Vin value="PULSE(0 1.2 0 100p 100p 2n 4n)"
@@ -435,7 +435,7 @@ value=50
 footprint=1206
 device=resistor
 m=1}
-C {/foss/designs/DLL/2026/Cells/TOP.sym} 10 70 0 0 {name=x12
+C {QDLL_TOP.sym} 10 70 0 0 {name=x12
 }
 C {sg13g2_pr/bondpad.sym} 640 70 1 0 {name=X15
 model=bondpad
@@ -448,7 +448,7 @@ C {lab_pin.sym} 570 40 1 0 {name=p15 sig_type=std_logic lab=out_b}
 C {sg13g2_IOPadAnalog.sym} 420 70 2 1 {name=x18
 }
 C {lab_pin.sym} -560 50 1 0 {name=p18 sig_type=std_logic lab=in_b}
-C {/foss/designs/DLL/2026/Cells/LATCH.sym} 310 -450 0 0 {name=x19}
+C {LATCH.sym} 310 -450 0 0 {name=x19}
 C {lab_pin.sym} 290 -530 1 0 {name=p19 sig_type=std_logic lab=IO_vdd}
 C {lab_pin.sym} 290 -370 3 0 {name=p20 sig_type=std_logic lab=IO_vss}
 C {lab_pin.sym} 330 -530 1 0 {name=p21 sig_type=std_logic lab=vout}

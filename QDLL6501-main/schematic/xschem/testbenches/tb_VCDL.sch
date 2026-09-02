@@ -5,28 +5,27 @@ V {}
 S {}
 F {}
 E {}
-N 0 310 0 330 {lab=VSS}
-N -850 210 -850 230 {lab=GND}
-N -750 210 -750 230 {lab=GND}
-N -850 450 -850 480 {lab=VSS}
-N -850 290 -850 390 {lab=VIN}
-N 0 200 50 200 {lab=VOUT}
-N 0 200 0 250 {lab=VOUT}
-N -450 180 -390 180 {lab=VIN}
-N -300 260 -300 330 {lab=VCONT}
-N -300 330 -170 330 {lab=VCONT}
-N -170 260 -170 330 {lab=VCONT}
-N -240 260 -240 280 {lab=VSS}
-N -240 110 -240 140 {lab=VDD}
-N -50 200 0 200 {lab=VOUT}
-N -430 220 -390 220 {lab=VOUT}
-N -430 220 -430 380 {lab=VOUT}
-N -430 380 -50 380 {lab=VOUT}
-N -50 200 -50 380 {lab=VOUT}
-N -90 200 -50 200 {lab=VOUT}
-C {vsource.sym} -850 420 0 0 {name=Vin value="PULSE(0 1.2 0 10p 10p 0.99n 2n)"}
-C {devices/lab_pin.sym} 50 200 0 1 {name=p4 sig_type=std_logic lab=VOUT}
-C {code_shown.sym} -910 580 0 0 {name=MODEL1 only_toplevel=true
+N 150 60 150 80 {lab=VSS}
+N 100 0 200 0 {lab=VOUT}
+N -370 280 -370 290 {lab=VSS}
+N -600 100 -600 120 {lab=GND}
+N -500 100 -500 120 {lab=GND}
+N -40 70 -40 120 {lab=VCONT}
+N -600 260 -600 290 {lab=VSS}
+N -600 180 -600 200 {lab=VIN}
+N -170 0 -110 0 {lab=VIN}
+N -370 180 -370 200 {lab=VCONT}
+N 40 70 40 120 {lab=VSS}
+N 0 -110 0 -60 {lab=VDD}
+N -290 260 -290 280 {lab=VSS}
+N -370 280 -290 280 {lab=VSS}
+N -370 260 -370 280 {lab=VSS}
+N -370 180 -290 180 {lab=VCONT}
+N -370 170 -370 180 {lab=VCONT}
+N -290 180 -290 200 {lab=VCONT}
+C {vsource.sym} -600 230 0 0 {name=Vin value="PULSE(0 1.2 0 10p 10p 0.99n 2n)"}
+C {devices/lab_pin.sym} 200 0 0 1 {name=p2 sig_type=std_logic lab=VOUT}
+C {code_shown.sym} -680 -240 0 0 {name=MODEL1 only_toplevel=true
 format="tcleval( @value )"
 value="
 
@@ -36,10 +35,9 @@ value="
 .lib cornerMOSlv.lib mos_tt
 .lib cornerRES.lib res_typ
 .lib cornerCAP.lib cap_typ
-.include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
 .endif
 "}
-C {devices/code_shown.sym} -1040 -250 0 0 {name=NGSPICE1 only_toplevel=true
+C {devices/code_shown.sym} -680 -440 0 0 {name=NGSPICE1 only_toplevel=true
 value="
 .control
  tran 1p 10n
@@ -48,22 +46,30 @@ value="
 .endc
 "
 spice_ignore=true}
-C {capa.sym} 0 280 0 0 {name=C3
+C {capa.sym} 150 30 0 0 {name=C1
 m=1
 value=100f
 footprint=1206
 device="ceramic capacitor"}
-C {vsource.sym} -850 180 0 0 {name=V2 value=1.2 savecurrent=false}
-C {gnd.sym} -850 230 0 0 {name=l1 lab=GND}
-C {lab_pin.sym} -850 150 2 0 {name=p8 sig_type=std_logic lab=VDD}
-C {vsource.sym} -750 180 0 0 {name=V5 value=0 savecurrent=false}
-C {gnd.sym} -750 230 0 0 {name=l8 lab=GND}
-C {lab_pin.sym} -750 150 2 0 {name=p9 sig_type=std_logic lab=VSS}
-C {lab_pin.sym} 0 330 2 0 {name=p11 sig_type=std_logic lab=VSS}
-C {devices/lab_pin.sym} -850 290 0 0 {name=p12 sig_type=std_logic lab=VIN}
-C {devices/lab_pin.sym} -450 180 0 0 {name=p13 sig_type=std_logic lab=VIN}
-C {lab_pin.sym} -850 480 2 0 {name=p14 sig_type=std_logic lab=VSS}
-C {code.sym} -730 -250 0 0 {name=PHASE_MEASR1 only_toplevel=true
+C {devices/vsource.sym} -370 230 0 0 {name=Vcont1 value="PWL(100n 0 200n 1.2)"
+spice_ignore=true}
+C {VCDL.sym} 0 0 0 0 {name=x1}
+C {vsource.sym} -600 70 0 0 {name=V3 value=1.2 savecurrent=false}
+C {gnd.sym} -600 120 0 0 {name=l6 lab=GND}
+C {lab_pin.sym} -600 40 2 0 {name=p3 sig_type=std_logic lab=VDD}
+C {vsource.sym} -500 70 0 0 {name=V4 value=0 savecurrent=false}
+C {gnd.sym} -500 120 0 0 {name=l7 lab=GND}
+C {lab_pin.sym} -500 40 2 0 {name=p5 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} -370 290 2 0 {name=p4 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} 150 80 2 0 {name=p6 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} -600 180 0 0 {name=p7 sig_type=std_logic lab=VIN}
+C {devices/lab_pin.sym} -170 0 0 0 {name=p8 sig_type=std_logic lab=VIN}
+C {lab_pin.sym} -600 290 2 0 {name=p1 sig_type=std_logic lab=VSS}
+C {devices/lab_pin.sym} -370 170 0 0 {name=p9 sig_type=std_logic lab=VCONT}
+C {devices/lab_pin.sym} -40 120 0 0 {name=p10 sig_type=std_logic lab=VCONT}
+C {lab_pin.sym} 40 120 2 0 {name=p11 sig_type=std_logic lab=VSS}
+C {lab_pin.sym} 0 -110 2 0 {name=p12 sig_type=std_logic lab=VDD}
+C {code.sym} -370 -440 0 0 {name=PHASE_MEASR only_toplevel=true
 value="
 .control
 * ---- settings you tweak ----
@@ -79,7 +85,7 @@ value="
 
 
 
-  tran 1p 10n
+  tran 2p 200n
 
   * ---- allocate vectors ----
   let tvec   = vector(N)
@@ -116,8 +122,8 @@ value="
   plot v(VIN) v(VOUT) 
 .endc
 "
-spice_ignore=true}
-C {code.sym} -730 -70 0 0 {name=TRANSIENT1 only_toplevel=true
+}
+C {code.sym} -370 -260 0 0 {name=TRANSIENT only_toplevel=true
 value="
 .control
  tran 1p 10n
@@ -125,8 +131,8 @@ value="
  plot v(VCONT)
 .endc
 "
-}
-C {code.sym} -540 -250 0 0 {name=PHASE_vs_VCONT1 only_toplevel=true
+spice_ignore=true}
+C {code.sym} -180 -440 0 0 {name=PHASE_vs_VCONT only_toplevel=true
 value="
 .control
 * ---- settings you tweak ----
@@ -184,8 +190,5 @@ value="
 .endc
 "
 spice_ignore=true}
-C {sg13g2_stdcells/sg13g2_inv_2.sym} -850 340 3 0 {name=x5 VDD=VDD VSS=VSS prefix=sg13g2_ spice_ignore=true}
-C {/foss/designs/DLL/2026/Cells/TOP.sym} -240 200 0 0 {name=x1}
-C {lab_pin.sym} -240 280 2 0 {name=p1 sig_type=std_logic lab=VSS}
-C {lab_pin.sym} -240 110 2 0 {name=p2 sig_type=std_logic lab=VDD}
-C {devices/lab_pin.sym} -300 330 0 0 {name=p3 sig_type=std_logic lab=VCONT}
+C {vsource.sym} -290 230 0 0 {name=V1 value=0.6 savecurrent=false
+}

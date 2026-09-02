@@ -115,7 +115,7 @@ value="
 .lib cornerCAP.lib cap_typ
 .include diodes.lib
 .include sg13g2_bondpad.lib
-.include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+.include $::env(PDK_ROOT)/$::env(PDK)/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
 "}
 C {code.sym} -550 -200 0 0 {name=TRANSIENT1 only_toplevel=true
 value="

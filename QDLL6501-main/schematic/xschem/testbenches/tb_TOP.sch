@@ -46,7 +46,7 @@ value="
 .lib cornerMOSlv.lib mos_tt
 .lib cornerRES.lib res_typ
 .lib cornerCAP.lib cap_typ
-.include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+.include $::env(PDK_ROOT)/$::env(PDK)/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
 .endif
 "}
 C {devices/code_shown.sym} -590 -460 0 0 {name=NGSPICE1 only_toplevel=true
@@ -194,13 +194,13 @@ value="
 .endc
 "
 spice_ignore=true}
-C {/foss/designs/DLL/2026/Cells/DLine.sym} 720 0 0 0 {name=x1}
+C {DLine.sym} 720 0 0 0 {name=x1}
 C {lab_pin.sym} 720 100 2 0 {name=p1 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 720 -100 2 0 {name=p2 sig_type=std_logic lab=VDD}
-C {/foss/designs/DLL/2026/Cells/VCDL.sym} 420 0 0 0 {name=x2}
-C {/foss/designs/DLL/2026/Cells/PD.sym} 0 240 0 0 {name=x3
+C {VCDL.sym} 420 0 0 0 {name=x2}
+C {PD.sym} 0 240 0 0 {name=x3
 }
-C {/foss/designs/DLL/2026/Cells/CP.sym} 250 240 0 0 {name=x4
+C {CP.sym} 250 240 0 0 {name=x4
 }
 C {lab_pin.sym} 420 -100 2 0 {name=p3 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 460 100 2 0 {name=p5 sig_type=std_logic lab=VSS}

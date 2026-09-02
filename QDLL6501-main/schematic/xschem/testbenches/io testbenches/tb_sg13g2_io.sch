@@ -136,15 +136,16 @@ C {devices/lab_wire.sym} 660 -350 0 0 {name=p2 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 950 -670 0 0 {name=p4 sig_type=std_logic lab=ana}
 C {devices/lab_wire.sym} 840 -510 0 0 {name=p5 sig_type=std_logic lab=dig}
 C {devices/simulator_commands_shown.sym} 960 -1130 0 0 {name=COMMANDS
+format="tcleval( @value )"
 simulator=ngspice
 only_toplevel=false 
 value="
 * ngspice commands
-.lib /foss/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib mos_tt
-.lib /foss/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerMOShv.lib mos_tt
-.lib /foss/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerRES.lib res_typ
-.inc /foss/pdks/ihp-sg13g2/libs.tech/ngspice/models/diodes.lib
-*.inc /foss/designs/EE628/5_Design/3_Real_circuits/sg13g2_io.spi
+.lib $::env(PDK_ROOT)/$::env(PDK)/libs.tech/ngspice/models/cornerMOSlv.lib mos_tt
+.lib $::env(PDK_ROOT)/$::env(PDK)/libs.tech/ngspice/models/cornerMOShv.lib mos_tt
+.lib $::env(PDK_ROOT)/$::env(PDK)/libs.tech/ngspice/models/cornerRES.lib res_typ
+.inc $::env(PDK_ROOT)/$::env(PDK)/libs.tech/ngspice/models/diodes.lib
+*.include sg13g2_io.spi
 .options gmin=1e-8
 .param vdd=1.2 iovdd=3
 
@@ -178,7 +179,8 @@ C {devices/lab_wire.sym} 1520 -510 0 0 {name=p6 sig_type=std_logic lab=vout}
 C {devices/vsource.sym} 580 -270 0 0 {name=V4 value=\{iovdd\} savecurrent=false}
 C {sg13g2_IOPadIOVss.sym} 380 -770 2 0 {name=x4}
 C {sg13g2_IOPadIOVdd.sym} 380 -910 2 0 {name=x5}
-C {sg13g2_IOPadVss.sym} 380 -1050 2 0 {name=x6}
+C {sg13g2_IOPadVSS.sym} 380 -1050 2 0 {name=x6
+}
 C {sg13g2_IOPadVdd.sym} 380 -1180 2 0 {name=x7}
 C {devices/lab_wire.sym} 580 -350 0 0 {name=p3 sig_type=std_logic lab=iovdd}
 C {sg13g2_IOPadOut4mA.sym} 1340 -510 2 1 {name=x11

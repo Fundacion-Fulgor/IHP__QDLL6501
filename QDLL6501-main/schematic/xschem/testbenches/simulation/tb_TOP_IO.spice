@@ -1,4 +1,4 @@
-** sch_path: /foss/designs/DLL/2026/testbenchs/tb_TOP_IO.sch
+** sch_path: QDLL6501-main/schematic/xschem/testbenches/tb_TOP_IO.sch
 **.subckt tb_TOP_IO
 V1 IO_vdd GND 1.2
 V2 IO_iovdd GND 3.3

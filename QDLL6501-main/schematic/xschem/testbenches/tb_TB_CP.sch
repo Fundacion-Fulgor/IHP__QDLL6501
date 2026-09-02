@@ -27,7 +27,7 @@ C {vsource.sym} -480 80 0 0 {name=V2 value="pulse(0,vdd,delay,tr,tf,duty,per) dc
 C {code_shown.sym} -660 -370 0 0 {name=MODEL only_toplevel=true
 format="tcleval( @value )"
 value="
-.include /opt/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+.include $::env(PDK_ROOT)/$::env(PDK)/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
 "}
 C {vsource.sym} -580 240 0 0 {name=V3 value=vdd savecurrent=false}
 C {gnd.sym} -580 290 0 0 {name=l3 lab=GND}
@@ -50,8 +50,8 @@ C {lab_pin.sym} -160 -20 0 0 {name=p10 sig_type=std_logic lab=PDIN1
 C {lab_pin.sym} 440 0 2 0 {name=p11 sig_type=std_logic lab=VCONT
 }
 C {lab_pin.sym} 140 -30 1 0 {name=p12 sig_type=std_logic lab=PDOUT}
-C {IHP__MPC0349/dependencies/IHP__QDLL6501/QDLL6501-main/schematic/xschem/PD.sym} 0 0 0 0 {name=x3}
-C {IHP__MPC0349/dependencies/IHP__QDLL6501/QDLL6501-main/schematic/xschem/CP.sym} 280 0 0 0 {name=x1}
+C {PD.sym} 0 0 0 0 {name=x3}
+C {CP.sym} 280 0 0 0 {name=x1}
 C {code.sym} -680 -570 0 0 {name=TRANSIENT_TT only_toplevel=true
 value="
 .param temp=65 vdd=1.2 

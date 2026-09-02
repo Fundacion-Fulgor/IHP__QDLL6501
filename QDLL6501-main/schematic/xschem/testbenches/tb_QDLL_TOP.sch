@@ -229,7 +229,7 @@ value="
 .lib cornerCAP.lib cap_typ
 .include diodes.lib
 .include sg13g2_bondpad.lib
-.include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+.include $::env(PDK_ROOT)/$::env(PDK)/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
 "}
 C {lab_pin.sym} 510 -80 2 0 {name=p3 sig_type=std_logic lab=IO_iovdd}
 C {lab_pin.sym} 510 -10 2 0 {name=p4 sig_type=std_logic lab=IO_iovss}
@@ -358,7 +358,7 @@ C {lab_pin.sym} 540 190 2 0 {name=p15 sig_type=std_logic lab=outpad2}
 C {sg13g2_IOPadAnalog.sym} 390 110 2 1 {name=x18
 }
 C {lab_pin.sym} -590 170 2 0 {name=p18 sig_type=std_logic lab=inpad2}
-C {/foss/designs/DLL/2026/Cells/QDLL_TOP.sym} -10 0 0 0 {name=x12}
+C {QDLL_TOP.sym} -10 0 0 0 {name=x12}
 C {lab_pin.sym} -180 -130 2 0 {name=p16 sig_type=std_logic lab=in1}
 C {lab_pin.sym} -180 110 2 0 {name=p17 sig_type=std_logic lab=in2}
 C {lab_pin.sym} 160 110 0 0 {name=p19 sig_type=std_logic lab=out2}

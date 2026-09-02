@@ -33,7 +33,7 @@ The design features two parallel delay-locked loops (DLLs) targeting timing alig
 - `Cells/` — Xschem schematics cells and symbols for all blocks, including the QDLL_TOP.
 - `Layouts/` — KLayout layout files.
 - `python/` — Python codes for post-processing analysis.
-- `testbenchs/` — Testbenches for functional simulations.
+- `testbenches/` — Testbenches for functional simulations.
 - `docs/` — Documentation and reports. The Mock Tape-Out Report is: 
 [QDLL Mock Tape Out Milestone 1](https://docs.google.com/presentation/d/1buPqdt9BBiQd7oaACnhc4rbIgDi21SVI7TTmWeHhwfk/edit?usp=sharing)
 [QDLL Mock Tape Out Milestone 2](https://docs.google.com/presentation/d/1SaUPbj3oBROP9z1-2TtK8tWIxL02-J9qEyfox9xo-iI/edit?usp=sharing)
