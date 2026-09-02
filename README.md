@@ -73,6 +73,14 @@ export PDK=ihp-sg13g2
 cace cace/QDLL_TOP.yaml -s schematic
 ```
 
+The `plot-cace` helper automatically runs inside `iic-osic-tools2`. Run a parameter and open interactive characterization plots with:
+
+```bash
+./plot-cace run out3_timing
+```
+
+Reopen the latest results with `./plot-cace`, list available metrics with `./plot-cace list`, or inspect a typical transient in `gaw` with `./plot-cace waveform out3_timing`. Plot options include `--x cload`, repeatable `--metric`, repeatable `--group`, and user-facing filters such as `--where temperature=125 --where cload=350`. Add `--all` to show every PVT combination or `--save plot.svg` to export the current figure. For a quick custom-load characterization, use `./plot-cace run out3_timing --typical --set cload=50000 --allow-fail`; condition values use the datasheet units, so this example runs at 50 pF because `cload` is specified in fF. Without `--allow-fail`, the helper preserves CACE's nonzero exit status when a specification fails.
+
 Xschem uses a valid external `PDK_ROOT` when supplied and otherwise falls back to the pinned submodule.
 
 ---

@@ -24,6 +24,14 @@ Cload3 OUT3 GND CACE\{cload\}
 .tran 5p 'period_s*14'
 .control
 run
+let t_in_rise = -1e99
+let t_in_fall = -1e99
+let t_out_fall = 1e99
+let t_out_rise = 1e99
+let out3_slew_rise = 1e99
+let out3_slew_fall = 1e99
+let out3_high_width = -1e99
+let out3_low_width = -1e99
 meas tran t_in_rise WHEN v(IN3)='CACE\{vdd\}/2' RISE=6
 meas tran t_in_fall WHEN v(IN3)='CACE\{vdd\}/2' FALL=6
 meas tran t_out_fall WHEN v(OUT3)='CACE\{vdd\}/2' FALL=6
