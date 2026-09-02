@@ -1,0 +1,96 @@
+** sch_path: /foss/designs/DLL/2026/testbenchs/tb_VCDL.sch
+**.subckt tb_VCDL
+Vin VIN VSS PULSE(0 1.2 0 10p 10p 0.99n 2n)
+C1 VOUT VSS 100f m=1
+x1[1] VDD VIN VOUT VCONT VSS VCDL
+x1[0] VDD VIN VOUT VCONT VSS VCDL
+V3 VDD GND 1.2
+V4 VSS GND 0
+V1 VCONT VSS 1.2
+**** begin user architecture code
+
+
+.param corner=0
+
+.if (corner==0)
+.lib cornerMOSlv.lib mos_tt
+.lib cornerRES.lib res_typ
+.lib cornerCAP.lib cap_typ
+.endif
+
+
+
+.control
+* ---- settings you tweak ----
+
+
+   * ---- user settings ----
+  let vlow  = 0
+  let vhigh = 1.2
+  let v50   = vlow + 0.5*(vhigh - vlow)
+
+  let start_edge = 0     ; skip early edges (settling)
+  let N = 200             ; number of phase samples
+
+
+
+  tran 2p 200n
+
+  * ---- allocate vectors ----
+  let tvec   = vector(N)
+  let phivec = vector(N)
+
+  let k = 0
+  let i = start_edge
+
+  while k < N
+    * crossing times
+    meas tran tin      WHEN v(VIN)=v50  RISE=i
+    meas tran tout     WHEN v(VOUT)=v50 RISE=i
+    meas tran tin_next WHEN v(VIN)=v50  RISE=(i+1)
+
+    * delay + period
+    let dt = tout - tin
+    let T  = tin_next - tin
+
+    * phase in degrees (per-cycle)
+    let phi = 360*dt/T
+    let phi = phi - 360*floor(phi/360)
+
+    * store sample at time = tin
+    let tvec[k]   = tin
+    let phivec[k] = phi
+
+    let k = k + 1
+    let i = i + 1
+  end
+
+  * plot phase vs time (one point per cycle)
+  plot phivec vs tvec
+  *plot v(VCONT)
+  plot v(VIN) v(VOUT)
+.endc
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  /foss/designs/DLL/2026/Cells/VCDL.sym # of pins=5
+** sym_path: /foss/designs/DLL/2026/Cells/VCDL.sym
+** sch_path: /foss/designs/DLL/2026/Cells/VCDL.sch
+.subckt VCDL VDD VIN VOUT VCONT VSS
+*.iopin VDD
+*.iopin VSS
+*.ipin VIN
+*.ipin VCONT
+*.opin VOUT
+XM1 VOUT VIN net3 VSS sg13_lv_nmos w=2u l=0.13u ng=1 m=1
+XM2 net3 VCONT VSS VSS sg13_lv_nmos w=3u l=0.16u ng=1 m=1
+XM3 net1 VCONT VSS VSS sg13_lv_nmos w=2u l=0.25u ng=1 m=1
+XM4 VOUT VIN net2 VDD sg13_lv_pmos w=4.46u l=0.13u ng=1 m=1
+XM5 net2 net1 VDD VDD sg13_lv_pmos w=4.46u l=0.16u ng=1 m=1
+XM6 net1 net1 VDD VDD sg13_lv_pmos w=2.24u l=0.13u ng=1 m=1
+.ends
+
+.GLOBAL GND
+.end

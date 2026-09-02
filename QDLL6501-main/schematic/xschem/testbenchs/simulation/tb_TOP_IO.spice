@@ -1,0 +1,529 @@
+** sch_path: /foss/designs/DLL/2026/testbenchs/tb_TOP_IO.sch
+**.subckt tb_TOP_IO
+V1 IO_vdd GND 1.2
+V2 IO_iovdd GND 3.3
+V3 IO_vss GND 0
+V4 IO_iovss GND 0
+x1 IO_iovdd IO_iovss IO_vss IO_vdd sg13g2_IOPadIOVdd
+x3 IO_iovdd IO_iovss IO_vss IO_vdd sg13g2_IOPadIOVss
+x2 IO_iovdd IO_iovss IO_vss IO_vdd sg13g2_IOPadVSS
+x4 IO_iovdd IO_iovss IO_vss IO_vdd sg13g2_IOPadVdd
+XX6 IO_iovss bondpad size=80u shape=0 padtype=0
+XX7 IO_iovdd bondpad size=80u shape=0 padtype=0
+XX8 IO_vdd bondpad size=80u shape=0 padtype=0
+XX9 IO_vss bondpad size=80u shape=0 padtype=0
+x13 IO_iovdd IO_iovss vin IO_vss IO_vdd in_a sg13g2_IOPadAnalog
+XX14 in_a bondpad size=80u shape=0 padtype=0
+V5 GND sub! 0
+XX16 out_a bondpad size=80u shape=0 padtype=0
+x17 IO_vdd vout vin vcont IO_vss vcont vout TOP
+Vin net1 GND PULSE(0 1.2 0 40p 40p 2n 4n)
+R4 net1 in_a 10 m=1
+x5 IO_iovdd IO_iovss vout IO_vss IO_vdd out_a sg13g2_IOPadAnalog
+x10 IO_iovdd IO_iovss net3 IO_vss IO_vdd net2 sg13g2_IOPadAnalog
+XX11 net2 bondpad size=80u shape=0 padtype=0
+**** begin user architecture code
+
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib cornerRES.lib res_typ
+.lib cornerCAP.lib cap_typ
+.include diodes.lib
+.include sg13g2_bondpad.lib
+.include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+
+
+
+.options method=gear reltol=1e-1 abstol=1e-1 vntol=1e-1
+.control
+ tran 20p 50n 20p
+* ---- settings you tweak ----
+
+
+   * ---- user settings ----
+  let vlow  = 0
+  let vhigh = 1.2
+  let v50   = vlow + 0.5*(vhigh - vlow)
+
+  let start_edge = 0     ; skip early edges (settling)
+  let N = 600             ; number of phase samples
+
+
+
+
+  * ---- allocate vectors ----
+  let tvec   = vector(N)
+  let phivec = vector(N)
+
+  let k = 0
+  let i = start_edge
+
+  while k < N
+    * crossing times
+    meas tran tin      WHEN v(in_a)=v50  RISE=i
+    meas tran tout     WHEN v(out_a)=v50 RISE=i
+    meas tran tin_next WHEN v(in_a)=v50  RISE=(i+1)
+
+    * delay + period
+    let dt = tout - tin
+    let T  = tin_next - tin
+
+    * phase in degrees (per-cycle)
+    let phi = 360*dt/T
+    let phi = phi - 360*floor(phi/360)
+
+    * store sample at time = tin
+    let tvec[k]   = tin
+    let phivec[k] = phi
+
+    let k = k + 1
+    let i = i + 1
+  end
+
+  * plot phase vs time (one point per cycle)
+  plot phivec vs tvec
+  *plot v(vcont)
+  plot v(vin) v(vout)
+  plot v(in_a) v(out_a)
+  plot v(vcont)
+.endc
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  sg13g2_IOPadIOVdd.sym # of pins=4
+** sym_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_IOPadIOVdd.sym
+** sch_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_IOPadIOVdd.sch
+.subckt sg13g2_IOPadIOVdd iovdd iovss vss vdd
+*.iopin iovss
+*.iopin iovdd
+*.iopin vss
+*.iopin vdd
+x1 net2 iovdd sg13g2_RCClampResistor
+x2 iovdd net1 net2 iovss sg13g2_RCClampInverter
+.ends
+
+
+* expanding   symbol:  sg13g2_IOPadIOVss.sym # of pins=4
+** sym_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_IOPadIOVss.sym
+** sch_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_IOPadIOVss.sch
+.subckt sg13g2_IOPadIOVss iovdd iovss vss vdd
+*.iopin iovss
+*.iopin iovdd
+*.iopin vdd
+*.iopin vss
+x8 iovss iovss iovdd sg13g2_DCNDiode
+x9 iovdd iovss iovss sg13g2_DCPDiode
+* noconn vdd
+* noconn vss
+.ends
+
+
+* expanding   symbol:  sg13g2_IOPadVSS.sym # of pins=4
+** sym_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_IOPadVSS.sym
+** sch_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_IOPadVSS.sch
+.subckt sg13g2_IOPadVSS iovdd iovss vss vdd
+*.iopin iovss
+*.iopin iovdd
+*.iopin vss
+*.iopin vdd
+x1 vss iovss iovdd sg13g2_DCNDiode
+x2 iovdd vss iovss sg13g2_DCPDiode
+* noconn vdd
+.ends
+
+
+* expanding   symbol:  sg13g2_IOPadVdd.sym # of pins=4
+** sym_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_IOPadVdd.sym
+** sch_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_IOPadVdd.sch
+.subckt sg13g2_IOPadVdd iovdd iovss vss vdd
+*.iopin vdd
+*.iopin iovdd
+*.iopin vss
+*.iopin iovss
+x6 vdd net2 sg13g2_RCClampResistor
+x1 vdd net1 net2 vss sg13g2_RCClampInverter
+.ends
+
+
+* expanding   symbol:  sg13g2_IOPadAnalog.sym # of pins=6
+** sym_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_IOPadAnalog.sym
+** sch_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_IOPadAnalog.sch
+.subckt sg13g2_IOPadAnalog iovdd iovss padres vss vdd pad
+*.iopin padres
+*.iopin iovss
+*.iopin iovdd
+*.iopin pad
+*.iopin vdd
+*.iopin vss
+x3 pad iovss iovdd sg13g2_DCNDiode
+x4 iovdd pad iovss sg13g2_DCPDiode
+x1 pad iovdd iovss sg13g2_Clamp_N20N0D
+x2 iovdd pad iovss sg13g2_Clamp_P20N0D
+x5 iovdd pad padres iovss sg13g2_SecondaryProtection
+.ends
+
+
+* expanding   symbol:  /foss/designs/DLL/2026/Cells/TOP.sym # of pins=7
+** sym_path: /foss/designs/DLL/2026/Cells/TOP.sym
+** sch_path: /foss/designs/DLL/2026/Cells/TOP.sch
+.subckt TOP VDD VOUT VIN VCONT VSS CPOUT PD2
+*.iopin VDD
+*.opin VOUT
+*.ipin VCONT
+*.ipin VIN
+*.iopin VSS
+*.ipin PD2
+*.opin CPOUT
+x1 VSS VDD net1 VOUT DLine
+x2 VDD VIN net1 VCONT VSS VCDL
+x3 VDD VSS VIN net2 PD2 PD
+x4 net2 CPOUT VSS CP
+.ends
+
+
+* expanding   symbol:  sg13g2_RCClampResistor.sym # of pins=2
+** sym_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_RCClampResistor.sym
+** sch_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_RCClampResistor.sch
+.subckt sg13g2_RCClampResistor pin2 pin1
+*.iopin pin1
+*.iopin pin2
+XR1 pin1 net1 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR2 net1 net2 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR3 net2 net3 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR4 net3 net4 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR5 net8 net7 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR6 net7 net6 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR7 net6 net5 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR8 net5 net4 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR9 net8 net9 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR10 net9 net10 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR11 net10 net11 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR12 net11 net12 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR13 net16 net15 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR14 net15 net14 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR15 net14 net13 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR16 net13 net12 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR17 net16 net17 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR18 net17 net18 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR19 net18 net19 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR20 net19 net20 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR21 net24 net23 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR22 net23 net22 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR23 net22 net21 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR24 net21 net20 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR25 net24 net25 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+XR26 net25 pin2 sub! rppd w=1.0e-6 l=20.0e-6 m=1 b=0
+.ends
+
+
+* expanding   symbol:  sg13g2_RCClampInverter.sym # of pins=4
+** sym_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_RCClampInverter.sym
+** sch_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_RCClampInverter.sch
+.subckt sg13g2_RCClampInverter supply out in ground
+*.iopin supply
+*.iopin ground
+*.opin out
+*.ipin in
+XM1 ground in ground ground sg13_hv_nmos w=9.0u l=9.5u ng=1 m=1
+XM2 ground in ground ground sg13_hv_nmos w=9.0u l=9.5u ng=1 m=1
+XM3 ground in ground ground sg13_hv_nmos w=9.0u l=9.5u ng=1 m=1
+XM4 ground in ground ground sg13_hv_nmos w=9.0u l=9.5u ng=1 m=1
+XM5 ground in ground ground sg13_hv_nmos w=9.0u l=9.5u ng=1 m=1
+XM6 ground in ground ground sg13_hv_nmos w=9.0u l=9.5u ng=1 m=1
+XM7 ground in ground ground sg13_hv_nmos w=9.0u l=9.5u ng=1 m=1
+XM8 ground in ground ground sg13_hv_nmos w=9.0u l=9.5u ng=1 m=1
+XM9 ground in ground ground sg13_hv_nmos w=9.0u l=9.5u ng=1 m=1
+XM10 ground in ground ground sg13_hv_nmos w=9.0u l=9.5u ng=1 m=1
+XM11 ground in ground ground sg13_hv_nmos w=9.0u l=9.5u ng=1 m=1
+XM12 ground in ground ground sg13_hv_nmos w=9.0u l=9.5u ng=1 m=1
+XM13 ground in ground ground sg13_hv_nmos w=9.0u l=9.5u ng=1 m=1
+XM14 ground in ground ground sg13_hv_nmos w=9.0u l=9.5u ng=1 m=1
+XM15 out in ground ground sg13_hv_nmos w=9.0u l=0.5u ng=1 m=1
+XM16 out in ground ground sg13_hv_nmos w=9.0u l=0.5u ng=1 m=1
+XM17 out in ground ground sg13_hv_nmos w=9.0u l=0.5u ng=1 m=1
+XM18 out in ground ground sg13_hv_nmos w=9.0u l=0.5u ng=1 m=1
+XM19 out in ground ground sg13_hv_nmos w=9.0u l=0.5u ng=1 m=1
+XM20 out in ground ground sg13_hv_nmos w=9.0u l=0.5u ng=1 m=1
+XM21 out in ground ground sg13_hv_nmos w=9.0u l=0.5u ng=1 m=1
+XM22 out in ground ground sg13_hv_nmos w=9.0u l=0.5u ng=1 m=1
+XM23 out in ground ground sg13_hv_nmos w=9.0u l=0.5u ng=1 m=1
+XM24 out in ground ground sg13_hv_nmos w=9.0u l=0.5u ng=1 m=1
+XM25 out in ground ground sg13_hv_nmos w=9.0u l=0.5u ng=1 m=1
+XM26 out in ground ground sg13_hv_nmos w=9.0u l=0.5u ng=1 m=1
+XM27 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM28 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM29 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM30 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM31 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM32 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM33 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM34 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM35 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM36 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM37 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM38 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM39 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM40 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM41 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM42 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM43 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM44 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM45 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM46 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM47 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM48 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM49 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM50 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM51 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM52 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM53 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM54 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM55 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM56 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM57 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM58 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM59 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM60 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM61 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM62 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM63 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM64 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM65 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM66 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM67 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM68 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM69 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM70 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM71 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM72 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM73 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM74 net1 in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM75 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+XM76 out in supply supply sg13_hv_pmos w=7.0u l=0.5u ng=1 m=1
+.ends
+
+
+* expanding   symbol:  sg13g2_DCNDiode.sym # of pins=3
+** sym_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_DCNDiode.sym
+** sch_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_DCNDiode.sch
+.subckt sg13g2_DCNDiode cathode anode guard
+*.iopin cathode
+*.iopin anode
+*.iopin guard
+XD1 anode cathode dantenna l=1.26u w=27.78u
+XD2 anode cathode dantenna l=1.26u w=27.78u
+* noconn guard
+.ends
+
+
+* expanding   symbol:  sg13g2_DCPDiode.sym # of pins=3
+** sym_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_DCPDiode.sym
+** sch_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_DCPDiode.sch
+.subckt sg13g2_DCPDiode cathode anode guard
+*.iopin cathode
+*.iopin anode
+*.iopin guard
+XD1 anode cathode dpantenna l=1.26u w=27.78u
+XD2 anode cathode dpantenna l=1.26u w=27.78u
+* noconn guard
+.ends
+
+
+* expanding   symbol:  sg13g2_Clamp_N20N0D.sym # of pins=3
+** sym_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_Clamp_N20N0D.sym
+** sch_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_Clamp_N20N0D.sch
+.subckt sg13g2_Clamp_N20N0D pad iovdd iovss
+*.iopin iovss
+*.iopin pad
+*.iopin iovdd
+XM1 iovss net1 pad iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM2 pad net1 iovss iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM3 iovss net1 pad iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM4 pad net1 iovss iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM5 iovss net1 pad iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM6 pad net1 iovss iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM7 iovss net1 pad iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM8 pad net1 iovss iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM9 iovss net1 pad iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM10 pad net1 iovss iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM11 iovss net1 pad iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM12 pad net1 iovss iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM13 iovss net1 pad iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM14 pad net1 iovss iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM15 iovss net1 pad iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM16 iovss net1 pad iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM17 pad net1 iovss iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM18 iovss net1 pad iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM19 pad net1 iovss iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XM20 iovss net1 pad iovss sg13_hv_nmos w=4.4u l=0.6u ng=1 m=1
+XR1 iovss net1 sub! rppd w=0.5e-6 l=0.5e-6 m=1 b=0
+.ends
+
+
+* expanding   symbol:  sg13g2_Clamp_P20N0D.sym # of pins=3
+** sym_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_Clamp_P20N0D.sym
+** sch_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_Clamp_P20N0D.sch
+.subckt sg13g2_Clamp_P20N0D iovdd pad iovss
+*.iopin iovdd
+*.iopin pad
+*.iopin iovss
+XM1 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM2 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM3 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM4 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM5 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM6 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM7 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM8 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM9 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM10 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM11 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM12 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM13 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM14 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM15 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM16 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM17 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM18 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM19 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM20 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM21 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM22 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM23 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM24 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM25 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM26 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM27 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM28 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM29 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM30 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM31 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM32 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM33 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM34 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM35 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM36 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM37 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM38 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM39 pad net1 iovdd iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XM40 iovdd net1 pad iovdd sg13_hv_pmos w=6.66u l=0.6u ng=1 m=1
+XR1 net1 iovdd sub! rppd w=0.5e-6 l=12.9e-6 m=1 b=0
+.ends
+
+
+* expanding   symbol:  sg13g2_SecondaryProtection.sym # of pins=4
+** sym_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_SecondaryProtection.sym
+** sch_path: /foss/designs/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/xschem/sg13g2_SecondaryProtection.sch
+.subckt sg13g2_SecondaryProtection iovdd pad core iovss
+*.iopin iovdd
+*.iopin iovss
+*.iopin core
+*.iopin pad
+XR1 pad core sub! rppd w=1e-6 l=2e-6 m=1 b=0
+XD1 iovss core dantenna l=3.1u w=0.78u
+XD2 core iovdd dpantenna l=0.78u w=4.98u
+.ends
+
+
+* expanding   symbol:  /foss/designs/DLL/2026/Cells/DLine.sym # of pins=4
+** sym_path: /foss/designs/DLL/2026/Cells/DLine.sym
+** sch_path: /foss/designs/DLL/2026/Cells/DLine.sch
+.subckt DLine VSS VDD VIN VOUT
+*.opin VOUT
+*.ipin VIN
+*.iopin VDD
+*.iopin VSS
+x7[1] net3_1 VIN VDD VSS sg13g2_dlygate4sd1_1
+x7[0] net3_0 VIN VDD VSS sg13g2_dlygate4sd1_1
+x9[3] net1_3 net3_1 VDD VSS sg13g2_inv_2
+x9[2] net1_2 net3_0 VDD VSS sg13g2_inv_2
+x9[1] net1_1 net3_1 VDD VSS sg13g2_inv_2
+x9[0] net1_0 net3_0 VDD VSS sg13g2_inv_2
+x1[7] net2_7 net1_3 VDD VSS sg13g2_inv_2
+x1[6] net2_6 net1_2 VDD VSS sg13g2_inv_2
+x1[5] net2_5 net1_1 VDD VSS sg13g2_inv_2
+x1[4] net2_4 net1_0 VDD VSS sg13g2_inv_2
+x1[3] net2_3 net1_3 VDD VSS sg13g2_inv_2
+x1[2] net2_2 net1_2 VDD VSS sg13g2_inv_2
+x1[1] net2_1 net1_1 VDD VSS sg13g2_inv_2
+x1[0] net2_0 net1_0 VDD VSS sg13g2_inv_2
+x2[15] VOUT net2_7 VDD VSS sg13g2_inv_2
+x2[14] VOUT net2_6 VDD VSS sg13g2_inv_2
+x2[13] VOUT net2_5 VDD VSS sg13g2_inv_2
+x2[12] VOUT net2_4 VDD VSS sg13g2_inv_2
+x2[11] VOUT net2_3 VDD VSS sg13g2_inv_2
+x2[10] VOUT net2_2 VDD VSS sg13g2_inv_2
+x2[9] VOUT net2_1 VDD VSS sg13g2_inv_2
+x2[8] VOUT net2_0 VDD VSS sg13g2_inv_2
+x2[7] VOUT net2_7 VDD VSS sg13g2_inv_2
+x2[6] VOUT net2_6 VDD VSS sg13g2_inv_2
+x2[5] VOUT net2_5 VDD VSS sg13g2_inv_2
+x2[4] VOUT net2_4 VDD VSS sg13g2_inv_2
+x2[3] VOUT net2_3 VDD VSS sg13g2_inv_2
+x2[2] VOUT net2_2 VDD VSS sg13g2_inv_2
+x2[1] VOUT net2_1 VDD VSS sg13g2_inv_2
+x2[0] VOUT net2_0 VDD VSS sg13g2_inv_2
+.ends
+
+
+* expanding   symbol:  /foss/designs/DLL/2026/Cells/VCDL.sym # of pins=5
+** sym_path: /foss/designs/DLL/2026/Cells/VCDL.sym
+** sch_path: /foss/designs/DLL/2026/Cells/VCDL.sch
+.subckt VCDL VDD VIN VOUT VCONT VSS
+*.iopin VDD
+*.iopin VSS
+*.ipin VIN
+*.ipin VCONT
+*.opin VOUT
+XM1 VOUT VIN net3 VSS sg13_lv_nmos w=2u l=0.13u ng=1 m=1
+XM2 net3 VCONT VSS VSS sg13_lv_nmos w=2u l=0.16u ng=1 m=1
+XM3 net1 VCONT VSS VSS sg13_lv_nmos w=2u l=0.25u ng=1 m=1
+XM4 VOUT VIN net2 VDD sg13_lv_pmos w=4.46u l=0.13u ng=1 m=1
+XM5 net2 net1 VDD VDD sg13_lv_pmos w=1.5u l=0.16u ng=1 m=1
+XM6 net1 net1 VDD VDD sg13_lv_pmos w=2.24u l=0.13u ng=1 m=1
+.ends
+
+
+* expanding   symbol:  /foss/designs/DLL/2026/Cells/PD.sym # of pins=5
+** sym_path: /foss/designs/DLL/2026/Cells/PD.sym
+** sch_path: /foss/designs/DLL/2026/Cells/PD.sch
+.subckt PD VDD VSS PDIN1 PDOUT PDIN2
+*.iopin VDD
+*.iopin VSS
+*.opin PDOUT
+*.ipin PDIN1
+*.ipin PDIN2
+x1 PDOUT PDIN1 PDIN2 VDD VSS sg13g2_xor2_1
+.ends
+
+
+* expanding   symbol:  /foss/designs/DLL/2026/Cells/CP.sym # of pins=3
+** sym_path: /foss/designs/DLL/2026/Cells/CP.sym
+** sch_path: /foss/designs/DLL/2026/Cells/CP.sch
+.subckt CP CPIN CPOUT VSS
+*.iopin VSS
+*.ipin CPIN
+*.opin CPOUT
+XC1 CPOUT VSS cap_cmim w=20e-6 l=20e-6 m=1
+x1 net1 CPIN RES
+x2 CPOUT net1 RES
+.ends
+
+
+* expanding   symbol:  /foss/designs/DLL/2026/Cells/RES.sym # of pins=2
+** sym_path: /foss/designs/DLL/2026/Cells/RES.sym
+** sch_path: /foss/designs/DLL/2026/Cells/RES.sch
+.subckt RES ROUT RIN
+*.ipin RIN
+*.opin ROUT
+XR1 net1 RIN sub! rppd w=1e-6 l=10e-6 m=1 b=0
+XR3 net2 net1 sub! rppd w=1e-6 l=10e-6 m=1 b=0
+XR4 net3 net2 sub! rppd w=1e-6 l=10e-6 m=1 b=0
+XR5 ROUT net3 sub! rppd w=1e-6 l=10e-6 m=1 b=0
+.ends
+
+.GLOBAL GND
+.GLOBAL sub!
+.end
