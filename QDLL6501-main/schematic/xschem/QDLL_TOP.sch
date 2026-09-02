@@ -89,7 +89,7 @@ C {lab_pin.sym} -110 540 2 0 {name=p30 sig_type=std_logic lab=VDD}
 C {VCDL.sym} -140 -640 0 0 {name=x2}
 C {VCDL.sym} -130 340 0 0 {name=x5}
 C {DLine.sym} 170 340 0 0 {name=x1}
-C {DLine.sym} 0 -10 0 0 {name=x3}
+C {DLineLP.sym} 0 -10 0 0 {name=x3}
 C {DLine.sym} 160 -640 0 0 {name=x4}
 C {PD.sym} -110 650 0 0 {name=x6}
 C {PD.sym} -120 -330 0 0 {name=x7}

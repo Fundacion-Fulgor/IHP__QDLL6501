@@ -175,6 +175,71 @@ parameters:
         minimum: 225
         typical: 250
         maximum: 275
+  out3_timing:
+    description: Fixed monitor-path timing, slew, pulse width, and output swing
+    display: OUT3 Timing
+    spec:
+      out3_delay_fall:
+        display: Falling Delay
+        unit: ps
+        maximum:
+          value: 1200
+      out3_delay_rise:
+        display: Rising Delay
+        unit: ps
+        maximum:
+          value: 1200
+      out3_slew_rise:
+        display: Rising Slew
+        unit: ps
+        maximum:
+          value: 500
+      out3_slew_fall:
+        display: Falling Slew
+        unit: ps
+        maximum:
+          value: 500
+      out3_high_width:
+        display: High Pulse Width
+        unit: ns
+        minimum:
+          value: 1.4
+      out3_low_width:
+        display: Low Pulse Width
+        unit: ns
+        minimum:
+          value: 1.4
+      out3_high:
+        display: Output High
+        unit: V
+        minimum:
+          value: 1.0
+      out3_low:
+        display: Output Low
+        unit: V
+        maximum:
+          value: 0.1
+    tool:
+      ngspice:
+        template: tb_out3.sch
+        format: ascii
+        suffix: .data
+        variables: [out3_delay_fall, out3_delay_rise, out3_slew_rise, out3_slew_fall, out3_high_width, out3_low_width, out3_high, out3_low]
+    conditions:
+      corner:
+        enumerate: [tt, ff, ss]
+      temperature:
+        enumerate: [0, 65, 125]
+      vdd:
+        minimum: 1.14
+        typical: 1.2
+        maximum: 1.26
+      fin:
+        minimum: 225
+        typical: 250
+        maximum: 275
+      cload:
+        enumerate: [100, 300, 350]
   phase_detector:
     description: XOR phase-detector gain at 45 degrees phase offset
     display: Phase Detector

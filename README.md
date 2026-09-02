@@ -63,7 +63,7 @@ Launch Xschem from the repository root so it loads the project `xschemrc`:
 xschem QDLL6501-main/schematic/xschem/QDLL_TOP.sch
 ```
 
-The target-adapted CACE 5.2 datasheet is `cace/QDLL_TOP.yaml` and was validated with CACE 2.9.0. Its ngspice templates characterize VCDL delay, current consumption, and phase-detector gain across the specified 225–275 MHz, 1.14–1.26 V, and 0/65/125 °C conditions. A nominal 250 MHz, 1.2 V, 65 °C smoke run passes; the full declared PVT matrix remains to be run. SG13G2 transistor simulation requires ngspice 40+ with OSDI enabled and compiled PSP103 models in the PDK.
+The target-adapted CACE 5.2 datasheet is `cace/QDLL_TOP.yaml` and was validated with CACE 2.9.0. Its ngspice templates characterize VCDL delay, current consumption, phase-detector gain, and OUT3 delay, slew, pulse width, and output swing across the specified 225–275 MHz, 1.14–1.26 V, and 0/65/125 °C conditions. The OUT3 test additionally covers 100, 300, and 350 fF loads. The declared schematic-level PVT regressions pass; release layout and extracted-netlist signoff remain pending. SG13G2 transistor simulation requires ngspice 40+ with OSDI enabled and compiled PSP103 models in the PDK.
 
 Run characterization with the pinned PDK explicitly selected:
 
@@ -72,6 +72,14 @@ export PDK_ROOT="$PWD/IHP-Open-PDK"
 export PDK=ihp-sg13g2
 cace cace/QDLL_TOP.yaml -s schematic
 ```
+
+The `plot-cace` helper automatically runs inside `iic-osic-tools2`. Run a parameter and open interactive characterization plots with:
+
+```bash
+./plot-cace run out3_timing
+```
+
+Reopen the latest results with `./plot-cace`, list available metrics with `./plot-cace list`, or inspect a typical transient in `gaw` with `./plot-cace waveform out3_timing`. Plot options include `--x cload`, repeatable `--metric`, repeatable `--group`, and user-facing filters such as `--where temperature=125 --where cload=350`. Add `--all` to show every PVT combination or `--save plot.svg` to export the current figure. For a quick custom-load characterization, use `./plot-cace run out3_timing --typical --set cload=50000 --allow-fail`; condition values use the datasheet units, so this example runs at 50 pF because `cload` is specified in fF. Without `--allow-fail`, the helper preserves CACE's nonzero exit status when a specification fails.
 
 Xschem uses a valid external `PDK_ROOT` when supplied and otherwise falls back to the pinned submodule.
 
@@ -161,7 +169,6 @@ This project is open-source project.
 
 
 Refer to [README](https://github.com/unic-cass/unic-cass-wrapper/blob/main/docs/README.md) for this sample project documentation.
-
 
 
 
