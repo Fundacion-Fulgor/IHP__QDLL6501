@@ -13,7 +13,7 @@
 x2 VDD IN1 net1 net3 VSS VCDL
 x5 VDD IN2 net4 VCONT2 VSS VCDL
 x1 VSS VDD net4 OUT2 DLine
-x3 VSS VDD IN3 OUT3 DLineLP
+x3 VSS VDD IN3 OUT3 DLine
 x4 VSS VDD net1 OUT1 DLine
 x6 VDD VSS IN2 net5 OUT2 PD
 x7 VDD VSS IN1 net2 OUT1 PD
@@ -50,22 +50,6 @@ XM6 net1 net1 VDD VDD sg13_lv_pmos w=2.24u l=0.13u ng=1 m=1 mm_ok=1
 x2 net1 net4 VDD VSS sg13g2_inv_4
 x3 net2 net1 VDD VSS sg13g2_inv_8
 x4 VOUT net2 VDD VSS sg13g2_inv_16
-x5 net3 VIN VDD VSS sg13g2_dlygate4sd3_1
-x6 net4 net3 VDD VSS sg13g2_dlygate4sd2_1
-.ends
-
-
-* expanding   symbol:  DLineLP.sym # of pins=4
-** sym_path: QDLL6501-main/schematic/xschem/DLineLP.sym
-** sch_path: QDLL6501-main/schematic/xschem/DLineLP.sch
-.subckt DLineLP VSS VDD VIN VOUT
-*.opin VOUT
-*.ipin VIN
-*.iopin VDD
-*.iopin VSS
-x2 net1 net4 VDD VSS sg13g2_inv_2
-x3 net2 net1 VDD VSS sg13g2_inv_4
-x4 VOUT net2 VDD VSS sg13g2_inv_8
 x5 net3 VIN VDD VSS sg13g2_dlygate4sd3_1
 x6 net4 net3 VDD VSS sg13g2_dlygate4sd2_1
 .ends
