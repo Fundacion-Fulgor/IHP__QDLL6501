@@ -1,0 +1,7 @@
+* Extracted by KLayout with SG13G2 LVS runset on : 08/03/2026 17:17
+
+.SUBCKT CP CPOUT VSS CPIN
+R$6 CPOUT CPIN rppd w=1u l=120u ps=0 b=0 m=1
+C$13 CPOUT VSS cap_cmim w=60u l=20u A=1200p P=160u m=1
+R$14 \$1 VSS ptap1 A=3.6504p P=18.72u
+.ENDS CP

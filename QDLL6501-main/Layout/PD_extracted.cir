@@ -1,0 +1,24 @@
+* Extracted by KLayout with SG13G2 LVS runset on : 07/03/2026 19:43
+
+.SUBCKT PD VSS PDOUT PDIN1 PDIN2 VDD
+M$1 VSS PDIN1 \$2 VSS sg13_lv_nmos L=0.13u W=0.55u AS=0.374p AD=0.174625p
++ PS=2.46u PD=1.185u
+M$2 VSS PDIN2 \$2 VSS sg13_lv_nmos L=0.13u W=0.55u AS=0.15245p AD=0.174625p
++ PS=1.17u PD=1.185u
+M$3 VSS PDIN1 \$4 VSS sg13_lv_nmos L=0.13u W=0.74u AS=0.15245p AD=0.0888p
++ PS=1.17u PD=0.98u
+M$4 \$4 PDIN2 PDOUT VSS sg13_lv_nmos L=0.13u W=0.74u AS=0.0888p AD=0.1628p
++ PS=0.98u PD=1.18u
+M$5 PDOUT \$2 VSS VSS sg13_lv_nmos L=0.13u W=0.74u AS=0.1628p AD=0.3108p
++ PS=1.18u PD=2.32u
+M$6 VDD PDIN1 \$9 VDD sg13_lv_pmos L=0.13u W=1u AS=0.36p AD=0.1225p PS=2.72u
++ PD=1.245u
+M$7 \$9 PDIN2 \$2 VDD sg13_lv_pmos L=0.13u W=1u AS=0.1225p AD=0.34p PS=1.245u
++ PD=2.68u
+M$8 \$8 PDIN1 VDD VDD sg13_lv_pmos L=0.13u W=1.12u AS=0.3808p AD=0.2128p
++ PS=2.92u PD=1.5u
+M$9 VDD PDIN2 \$8 VDD sg13_lv_pmos L=0.13u W=1.12u AS=0.2128p AD=0.2128p
++ PS=1.5u PD=1.5u
+M$10 \$8 \$2 PDOUT VDD sg13_lv_pmos L=0.13u W=1.12u AS=0.2128p AD=0.3808p
++ PS=1.5u PD=2.92u
+.ENDS PD
