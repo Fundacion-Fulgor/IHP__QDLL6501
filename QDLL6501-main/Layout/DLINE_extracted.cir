@@ -1,0 +1,48 @@
+* Extracted by KLayout with SG13G2 LVS runset on : 07/03/2026 14:18
+
+.SUBCKT DLINE VSS VOUT VIN VDD
+M$1 \$2 VIN VSS VSS sg13_lv_nmos L=0.13u W=0.42u AS=0.1428p AD=0.0798p PS=1.52u
++ PD=0.8u
+M$2 VSS \$2 \$3 VSS sg13_lv_nmos L=0.5u W=0.42u AS=0.0798p AD=0.1428p PS=0.8u
++ PD=1.52u
+M$3 \$5 \$4 VSS VSS sg13_lv_nmos L=0.13u W=0.42u AS=0.1428p AD=0.1323p PS=1.52u
++ PD=1.05u
+M$4 VSS \$5 \$6 VSS sg13_lv_nmos L=0.18u W=0.42u AS=0.1323p AD=0.1428p PS=1.05u
++ PD=1.52u
+M$5 VSS \$3 \$12 VSS sg13_lv_nmos L=0.5u W=0.42u AS=0.1426p AD=0.1428p PS=1.16u
++ PD=1.52u
+M$6 VSS \$12 \$4 VSS sg13_lv_nmos L=0.13u W=0.74u AS=0.1426p AD=0.2516p
++ PS=1.16u PD=2.16u
+M$7 VSS \$6 \$13 VSS sg13_lv_nmos L=0.18u W=0.42u AS=0.1405p AD=0.2163p
++ PS=1.15u PD=1.87u
+M$8 VSS \$13 \$7 VSS sg13_lv_nmos L=0.13u W=0.74u AS=0.1405p AD=0.2516p
++ PS=1.15u PD=2.16u
+M$9 VSS \$7 \$8 VSS sg13_lv_nmos L=0.13u W=2.96u AS=0.6734p AD=0.6734p PS=5.52u
++ PD=5.52u
+M$13 VSS \$8 \$9 VSS sg13_lv_nmos L=0.13u W=5.92u AS=1.2395p AD=1.2395p
++ PS=10.01u PD=10.01u
+M$21 VSS \$9 VOUT VSS sg13_lv_nmos L=0.13u W=11.84u AS=2.3606p AD=2.3606p
++ PS=18.96u PD=18.96u
+M$37 VDD VIN \$2 VDD sg13_lv_pmos L=0.13u W=0.42u AS=0.1523p AD=0.1428p
++ PS=1.38u PD=1.52u
+M$38 VDD \$2 \$3 VDD sg13_lv_pmos L=0.5u W=1u AS=0.1523p AD=0.34p PS=1.38u
++ PD=2.68u
+M$39 VDD \$4 \$5 VDD sg13_lv_pmos L=0.13u W=0.42u AS=0.2481p AD=0.1428p
++ PS=1.56u PD=1.52u
+M$40 VDD \$5 \$6 VDD sg13_lv_pmos L=0.25u W=1u AS=0.2481p AD=0.34p PS=1.56u
++ PD=2.68u
+M$41 \$12 \$3 VDD VDD sg13_lv_pmos L=0.5u W=1u AS=0.34p AD=0.2254p PS=2.68u
++ PD=1.53u
+M$42 VDD \$12 \$4 VDD sg13_lv_pmos L=0.13u W=1.12u AS=0.2254p AD=0.4256p
++ PS=1.53u PD=3u
+M$43 \$13 \$6 VDD VDD sg13_lv_pmos L=0.25u W=1u AS=0.445p AD=0.2245p PS=2.89u
++ PD=1.53u
+M$44 VDD \$13 \$7 VDD sg13_lv_pmos L=0.13u W=1.12u AS=0.2245p AD=0.3808p
++ PS=1.53u PD=2.92u
+M$45 VDD \$7 \$8 VDD sg13_lv_pmos L=0.13u W=4.48u AS=1.0192p AD=1.0192p
++ PS=7.42u PD=7.42u
+M$49 VDD \$8 \$9 VDD sg13_lv_pmos L=0.13u W=8.96u AS=1.876p AD=1.876p PS=13.43u
++ PD=13.43u
+M$57 VDD \$9 VOUT VDD sg13_lv_pmos L=0.13u W=17.92u AS=3.6288p AD=3.5728p
++ PS=25.52u PD=25.42u
+.ENDS DLINE

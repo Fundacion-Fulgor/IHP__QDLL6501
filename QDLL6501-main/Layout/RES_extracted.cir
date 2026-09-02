@@ -1,0 +1,5 @@
+* Extracted by KLayout with SG13G2 LVS runset on : 08/03/2026 17:38
+
+.SUBCKT RES
+R$12 \$2 \$25 rppd w=1u l=120u ps=0 b=0 m=1
+.ENDS RES
