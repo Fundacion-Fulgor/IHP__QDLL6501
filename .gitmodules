@@ -1,6 +1,6 @@
 [submodule "IHP-Open-PDK"]
 	path = IHP-Open-PDK
-	url = https://github.com/KrzysztofHerman/IHP-Open-PDK.git
+	url = https://github.com/IHP-GmbH/IHP-Open-PDK.git
 	branch = dev
 [submodule "openpdk-libraries"]
 	path = openpdk-libraries
