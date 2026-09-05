@@ -18,9 +18,9 @@ C {ipin.sym} 310 0 0 0 {name=p3 lab=VIN}
 C {iopin.sym} 340 -110 3 0 {name=p1 lab=VDD
 }
 C {iopin.sym} 410 -130 1 0 {name=p2 lab=VSS}
-C {sg13g2_stdcells/sg13g2_inv_2.sym} -10 -350 0 0 {name=x30 VDD=VDD VSS=VSS prefix=sg13g2_ spice_ignore=true}
-C {sg13g2_stdcells/sg13g2_inv_4.sym} 720 0 0 0 {name=x2 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {sg13g2_stdcells/sg13g2_inv_8.sym} 830 0 0 0 {name=x3 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {sg13g2_stdcells/sg13g2_inv_16.sym} 940 0 0 0 {name=x4 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {sg13g2_stdcells/sg13g2_dlygate4sd3_1.sym} 400 0 0 0 {name=x5 VDD=VDD VSS=VSS prefix=sg13g2_ }
-C {sg13g2_stdcells/sg13g2_dlygate4sd2_1.sym} 560 0 0 0 {name=x6 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {sg13g2_inv_2.sym} -10 -350 0 0 {name=x30 VDD=VDD VSS=VSS prefix=sg13g2_ spice_ignore=true}
+C {sg13g2_inv_4.sym} 720 0 0 0 {name=x2 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {sg13g2_inv_8.sym} 830 0 0 0 {name=x3 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {sg13g2_inv_16.sym} 940 0 0 0 {name=x4 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {sg13g2_dlygate4sd3_1.sym} 400 0 0 0 {name=x5 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {sg13g2_dlygate4sd2_1.sym} 560 0 0 0 {name=x6 VDD=VDD VSS=VSS prefix=sg13g2_ }

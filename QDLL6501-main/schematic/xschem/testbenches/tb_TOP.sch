@@ -208,4 +208,4 @@ C {lab_pin.sym} 250 360 2 0 {name=p6 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 0 360 2 0 {name=p7 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 0 130 2 0 {name=p10 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 380 150 2 0 {name=p15 sig_type=std_logic lab=VCONT}
-C {sg13g2_stdcells/sg13g2_inv_2.sym} -470 330 3 0 {name=x5 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {sg13g2_inv_2.sym} -470 330 3 0 {name=x5 VDD=VDD VSS=VSS prefix=sg13g2_}

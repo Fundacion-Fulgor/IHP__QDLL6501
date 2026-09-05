@@ -10,10 +10,16 @@ if {![file exists $PDK_ROOT/$PDK/libs.tech/xschem/xschemrc]} {
     puts "Set PDK_ROOT or run: git submodule update --init --recursive"
     exit 1
 }
+set IO_LIBRARY_PATH $SCRIPT_DIR/openpdk-libraries/ihp-sg13g2/sg13g2_io/xschem
+if {![file isdirectory $IO_LIBRARY_PATH]} {
+    puts "ERROR: openpdk-libraries is unavailable."
+    puts "Run: git submodule update --init --recursive"
+    exit 1
+}
 source $PDK_ROOT/$PDK/libs.tech/xschem/xschemrc
 append XSCHEM_LIBRARY_PATH :$SCRIPT_DIR/QDLL6501-main/schematic/xschem
 append XSCHEM_LIBRARY_PATH :$PDK_ROOT/$PDK/libs.ref/sg13g2_pr/xschem
-append XSCHEM_LIBRARY_PATH :$PDK_ROOT/$PDK/libs.ref/sg13g2_stdcell/xschem
-append XSCHEM_LIBRARY_PATH :$PDK_ROOT/$PDK/libs.ref/sg13g2_io/xschem
+append XSCHEM_LIBRARY_PATH :$PDK_ROOT/$PDK/libs.ref/sg13g2_stdcell/sym/xschem
+append XSCHEM_LIBRARY_PATH :$IO_LIBRARY_PATH
 append XSCHEM_LIBRARY_PATH :$PDK_ROOT/$PDK/libs.tech/xschem/sg13g2_pr
 set netlist_dir $SCRIPT_DIR/QDLL6501-main/schematic/xschem

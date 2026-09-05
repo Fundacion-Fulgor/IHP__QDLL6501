@@ -184,7 +184,7 @@ value="
 .endc
 "
 spice_ignore=true}
-C {sg13g2_stdcells/sg13g2_inv_2.sym} -850 340 3 0 {name=x5 VDD=VDD VSS=VSS prefix=sg13g2_ spice_ignore=true}
+C {sg13g2_inv_2.sym} -850 340 3 0 {name=x5 VDD=VDD VSS=VSS prefix=sg13g2_ spice_ignore=true}
 C {QDLL_TOP.sym} -240 200 0 0 {name=x1}
 C {lab_pin.sym} -240 280 2 0 {name=p1 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} -240 110 2 0 {name=p2 sig_type=std_logic lab=VDD}
