@@ -1,0 +1,24 @@
+** sch_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/PD.sch
+.subckt PD VDD VSS PDIN1 PDOUT PDIN2
+*.PININFO VDD:B VSS:B PDOUT:O PDIN1:I PDIN2:I
+x2 PDOUT PDIN1 PDIN2 VDD VSS sg13g2_xor2_1
+.ends
+
+* expanding   symbol:  sg13g2_xor2_1.sym # of pins=3
+** sym_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sym/xschem/sg13g2_xor2_1.sym
+** sch_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sch/xschem/sg13g2_xor2_1.sch
+.subckt sg13g2_xor2_1 X A B VDD VSS
+
+*.PININFO X:O B:I A:I
+MM1 net1 A VSS VSS sg13_lv_nmos w=550.00n l=130.00n ng=1
+MM2 net1 B VSS VSS sg13_lv_nmos w=550.00n l=130.00n ng=1
+MM3 X net1 VSS VSS sg13_lv_nmos w=740.00n l=130.00n ng=1
+MM4 X B net3 VSS sg13_lv_nmos w=740.00n l=130.00n ng=1
+MM5 net3 A VSS VSS sg13_lv_nmos w=740.00n l=130.00n ng=1
+MM6 net4 A VDD VDD sg13_lv_pmos w=1.000u l=130.00n ng=1
+MM7 net1 B net4 VDD sg13_lv_pmos w=1.000u l=130.00n ng=1
+MM8 net2 A VDD VDD sg13_lv_pmos w=1.12u l=130.00n ng=1
+MM9 X net1 net2 VDD sg13_lv_pmos w=1.12u l=130.00n ng=1
+MM10 net2 B VDD VDD sg13_lv_pmos w=1.12u l=130.00n ng=1
+.ends
+

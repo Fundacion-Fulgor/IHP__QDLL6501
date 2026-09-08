@@ -1,0 +1,10 @@
+** sch_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/VCDL.sch
+.subckt VCDL VDD VIN VOUT VCONT VSS
+*.PININFO VDD:B VSS:B VIN:I VCONT:I VOUT:O
+MM1 VOUT VIN net3 VSS sg13_lv_nmos w=2u l=0.13u ng=1
+MM2 net3 VCONT VSS VSS sg13_lv_nmos w=3.5u l=0.18u ng=1
+MM3 net1 VCONT VSS VSS sg13_lv_nmos w=2u l=0.25u ng=1
+MM4 VOUT VIN net2 VDD sg13_lv_pmos w=4.46u l=0.13u ng=1
+MM5 net2 net1 VDD VDD sg13_lv_pmos w=2.24u l=0.13u ng=1
+MM6 net1 net1 VDD VDD sg13_lv_pmos w=2.24u l=0.13u ng=1
+.ends

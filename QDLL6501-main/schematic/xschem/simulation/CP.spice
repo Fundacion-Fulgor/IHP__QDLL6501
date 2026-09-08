@@ -1,0 +1,26 @@
+** sch_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/CP.sch
+.subckt CP CPIN CPOUT VSS
+*.PININFO VSS:B CPIN:I CPOUT:O
+CC1 CPOUT VSS cap_cmim w=60e-6 l=20e-6
+x1 CPOUT CPIN VSS RES
+.ends
+
+* expanding   symbol:  RES.sym # of pins=3
+** sym_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/RES.sym
+** sch_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/RES.sch
+.subckt RES ROUT RIN VSS
+*.PININFO RIN:I ROUT:O VSS:B
+RR13 net1 RIN 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR1 net2 net1 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR2 net3 net2 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR3 net4 net3 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR4 net5 net4 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR5 net6 net5 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR6 net7 net6 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR7 net8 net7 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR8 net9 net8 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR9 net10 net9 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR10 net11 net10 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR11 ROUT net11 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+.ends
+
