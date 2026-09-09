@@ -1,0 +1,96 @@
+_sourceme_main() {
+  local is_direct=0
+  local src=""
+  if [ -n "${BASH_VERSION:-}" ]; then
+    src="${BASH_SOURCE[0]}"
+    if [ "$src" = "$0" ]; then
+      is_direct=1
+    fi
+  elif [ -n "${ZSH_VERSION:-}" ]; then
+    src="${(%):-%x}"
+    case "${ZSH_EVAL_CONTEXT:-}" in
+      *:file*) ;;
+      *) is_direct=1 ;;
+    esac
+  else
+    echo "Error: Only Bash and Zsh are supported." >&2
+    unset -f _sourceme_main
+    return 1 2>/dev/null || exit 1
+  fi
+
+  if [ "$is_direct" -eq 1 ]; then
+    echo "SOURCEME must be sourced. Run: source ${src:-$0}" >&2
+    unset -f _sourceme_main
+    exit 1
+  fi
+
+  local root_dir
+  root_dir="$(cd -P -- "$(dirname -- "$src")" >/dev/null 2>&1 && pwd)" || root_dir=""
+  if [ -z "$root_dir" ] || [ ! -d "$root_dir" ]; then
+    echo "Error: Failed to determine repository root directory." >&2
+    unset -f _sourceme_main
+    return 1
+  fi
+
+  local pdk_root="${root_dir}/IHP-Open-PDK"
+  local tech_dir="${pdk_root}/ihp-sg13g2/libs.tech/klayout/tech"
+  local lyt_file="${tech_dir}/sg13g2.lyt"
+  local klayout_repo_dir="${root_dir}/klayout"
+  local klayout_tech_parent="${pdk_root}/ihp-sg13g2/libs.tech/klayout"
+  local gds_file="${pdk_root}/ihp-sg13g2/libs.ref/sg13g2_stdcell/gds/sg13g2_stdcell.gds"
+  local lib_file="${klayout_repo_dir}/libraries/sg13g2_stdcell.gds"
+
+  if [ ! -d "$pdk_root" ] || [ ! -d "$tech_dir" ] || [ ! -f "$lyt_file" ] || [ ! -f "$gds_file" ] || [ ! -f "$lib_file" ]; then
+    echo "Error: SG13G2 PDK dependencies missing or incomplete." >&2
+    echo "Please initialize git submodules using:" >&2
+    echo "  git submodule update --init --recursive" >&2
+    unset -f _sourceme_main
+    return 1
+  fi
+
+  local new_klayout_path=""
+  _sourceme_add_path() {
+    local target="$1"
+    if [ -z "$target" ]; then
+      return 0
+    fi
+    case ":${new_klayout_path}:" in
+      *:"$target":*) ;;
+      *)
+        if [ -z "$new_klayout_path" ]; then
+          new_klayout_path="$target"
+        else
+          new_klayout_path="${new_klayout_path}:${target}"
+        fi
+        ;;
+    esac
+  }
+
+  _sourceme_add_path "$klayout_repo_dir"
+  _sourceme_add_path "$klayout_tech_parent"
+  _sourceme_add_path "$tech_dir"
+
+  local cur_klayout="${KLAYOUT_PATH:-}"
+  local rem="$cur_klayout"
+  local part
+  while [ -n "$rem" ]; do
+    part="${rem%%:*}"
+    _sourceme_add_path "$part"
+    if [ "$rem" = "$part" ]; then
+      rem=""
+    else
+      rem="${rem#*:}"
+    fi
+  done
+
+  unset -f _sourceme_add_path
+
+  export PDK_ROOT="$pdk_root"
+  export PDK=ihp-sg13g2
+  export KLAYOUT_PATH="$new_klayout_path"
+
+  unset -f _sourceme_main
+  return 0
+}
+_sourceme_main "$@"
+return $? 2>/dev/null || exit $?

@@ -57,6 +57,24 @@ Initialize the pinned PDK and IO-cell library dependencies after cloning:
 git submodule update --init --recursive
 ```
 
+Antes de ejecutar las herramientas, carga el entorno del proyecto en Bash o Zsh:
+
+```bash
+source ./SOURCEME
+```
+
+Hazlo en la misma terminal donde ejecutarás KLayout, Xschem o CACE. Si usas `iic-osic-tools2`, entra primero con `distrobox enter iic-osic-tools2` y carga `SOURCEME` desde la raíz del repositorio dentro del contenedor.
+
+`SOURCEME` selecciona el PDK fijado en el repositorio: exporta `PDK_ROOT=<repo>/IHP-Open-PDK` y `PDK=ihp-sg13g2`, reemplazando cualquier selección previa. Añade las rutas de tecnología, PCells y celdas estándar a `KLAYOUT_PATH`, conserva las entradas existentes y no las duplica al cargarlo nuevamente. No modifica la configuración global ni descarga dependencias.
+
+Para abrir KLayout en modo edición:
+
+```bash
+klayout -e
+```
+
+La biblioteca `sg13g2_stdcell` estará disponible para insertar instancias, con las 84 celdas del PDK actual. KLayout la carga mediante el enlace relativo `klayout/libraries/sg13g2_stdcell.gds`, sin copiar el GDS ni modificar el submódulo. También puedes abrir un layout directamente, por ejemplo `klayout -e release/v.1.0.0/gds/QDLL_TOP.gds`. En cada terminal nueva debes volver a cargar `SOURCEME`.
+
 Launch Xschem from the repository root so it loads the project `xschemrc`:
 
 ```bash
