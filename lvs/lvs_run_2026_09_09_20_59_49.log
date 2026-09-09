@@ -1,0 +1,18 @@
+09-Sep-2026 22:59:49 | INFO    | Your Klayout version is: KLayout 0.30.11 (required >= 0.30.5)
+09-Sep-2026 22:59:49 | INFO    | Running SG13G2 LVS checks on design /foss/designs/IHP__QDLL6501/release/v.1.0.0/gds/QDLL_TOP.gds on cell QDLL_TOP
+09-Sep-2026 22:59:54 | INFO    | ==============================================================================
+09-Sep-2026 22:59:54 | INFO    | Important Summary
+09-Sep-2026 22:59:54 | INFO    | +------------------+--------------------------------------------------------------+
+09-Sep-2026 22:59:54 | INFO    | | Status           | FAIL                                                         |
+09-Sep-2026 22:59:54 | INFO    | | Mode             | COMPARE                                                      |
+09-Sep-2026 22:59:54 | INFO    | | Outcome          | Comparison mode: FAIL (netlists do not match).               |
+09-Sep-2026 22:59:54 | INFO    | | Layout           | QDLL_TOP.gds                                                 |
+09-Sep-2026 22:59:54 | INFO    | | Top Cell         | QDLL_TOP                                                     |
+09-Sep-2026 22:59:54 | INFO    | | Results Dir      | /foss/designs/IHP__QDLL6501/LVS                              |
+09-Sep-2026 22:59:54 | INFO    | | Warnings         | 0                                                            |
+09-Sep-2026 22:59:54 | INFO    | | Errors           | 1                                                            |
+09-Sep-2026 22:59:54 | INFO    | | Run Time (s)     | 4.648                                                        |
+09-Sep-2026 22:59:54 | INFO    | +------------------+--------------------------------------------------------------+
+09-Sep-2026 22:59:54 | ERROR   | Key errors:
+09-Sep-2026 22:59:54 | ERROR   |   - 2026-09-09 22:59:54 +0200: Memory Usage (486676K) : ERROR : Netlists don't match
+09-Sep-2026 22:59:54 | INFO    | ==============================================================================
