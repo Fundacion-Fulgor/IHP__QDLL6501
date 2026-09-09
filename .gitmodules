@@ -6,3 +6,6 @@
 	path = openpdk-libraries
 	url = https://github.com/openic-org/openpdk-libraries.git
 	branch = main
+[submodule "QDLL6501-main/Layout/logo/artistic"]
+	path = QDLL6501-main/Layout/logo/artistic
+	url = https://github.com/pulp-platform/artistic.git
