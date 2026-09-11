@@ -47,4 +47,4 @@ spiceprefix=X
 spice_ignore=true}
 C {RES.sym} -580 0 0 0 {name=x1}
 C {lab_pin.sym} -580 40 1 0 {name=p4 sig_type=std_logic lab=VSS}
-C {sg13g2_hv_antennanp.sym} -100 70 3 0 {name=x2 VDD=CPOUT VSS=VSS prefix=sg13g2_hv_ }
+C {sg13g2_antennanp.sym} -100 70 3 0 {name=x2 VDD=CPOUT VSS=VSS prefix=sg13g2_ }

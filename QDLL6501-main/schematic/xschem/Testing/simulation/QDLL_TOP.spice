@@ -1,0 +1,189 @@
+** sch_path: /foss/designs/IHP__QDLL6501/QDLL6501-main/schematic/xschem/Testing/QDLL_TOP.sch
+.subckt QDLL_TOP VDD VSS IN1 IN2 OUT1 OUT2 CPOUT2 VCONT2 OUT3 IN3
+*.PININFO VDD:B VSS:B IN1:I IN2:I OUT1:O OUT2:O CPOUT2:O VCONT2:I OUT3:O IN3:I
+x2 VDD IN1 net1 net3 VSS VCDL
+x5 VDD IN2 net4 VCONT2 VSS VCDL
+x1 VSS VDD net4 OUT2 DLine
+x3 VSS VDD IN3 OUT3 DLine
+x4 VSS VDD net1 OUT1 DLine
+x6 VDD VSS IN2 net5 OUT2 PD
+x7 VDD VSS IN1 net2 OUT1 PD
+x8 net2 net3 VSS CP
+x9 net5 CPOUT2 VSS CP
+CC1 VDD VSS cap_cmim w=25.5e-6 l=6.99e-6
+.ends
+
+* expanding   symbol:  VCDL.sym # of pins=5
+** sym_path: /foss/designs/IHP__QDLL6501/QDLL6501-main/schematic/xschem/VCDL.sym
+** sch_path: /foss/designs/IHP__QDLL6501/QDLL6501-main/schematic/xschem/VCDL.sch
+.subckt VCDL VDD VIN VOUT VCONT VSS
+*.PININFO VDD:B VSS:B VIN:I VCONT:I VOUT:O
+MM1 VOUT VIN net3 VSS sg13_lv_nmos w=2u l=0.13u ng=1
+MM2 net3 VCONT VSS VSS sg13_lv_nmos w=3.5u l=0.18u ng=1
+MM3 net1 VCONT VSS VSS sg13_lv_nmos w=2u l=0.25u ng=1
+MM4 VOUT VIN net2 VDD sg13_lv_pmos w=4.46u l=0.13u ng=1
+MM5 net2 net1 VDD VDD sg13_lv_pmos w=2.24u l=0.13u ng=1
+MM6 net1 net1 VDD VDD sg13_lv_pmos w=2.24u l=0.13u ng=1
+.ends
+
+
+* expanding   symbol:  DLine.sym # of pins=4
+** sym_path: /foss/designs/IHP__QDLL6501/QDLL6501-main/schematic/xschem/DLine.sym
+** sch_path: /foss/designs/IHP__QDLL6501/QDLL6501-main/schematic/xschem/DLine.sch
+.subckt DLine VSS VDD VIN VOUT
+*.PININFO VOUT:O VIN:I VDD:B VSS:B
+x2 net1 net4 VDD VSS sg13g2_inv_4
+x3 net2 net1 VDD VSS sg13g2_inv_8
+x4 VOUT net2 VDD VSS sg13g2_inv_16
+x5 net3 VIN VDD VSS sg13g2_dlygate4sd3_1
+x6 net4 net3 VDD VSS sg13g2_dlygate4sd2_1
+.ends
+
+
+* expanding   symbol:  PD.sym # of pins=5
+** sym_path: /foss/designs/IHP__QDLL6501/QDLL6501-main/schematic/xschem/PD.sym
+** sch_path: /foss/designs/IHP__QDLL6501/QDLL6501-main/schematic/xschem/PD.sch
+.subckt PD VDD VSS PDIN1 PDOUT PDIN2
+*.PININFO VDD:B VSS:B PDOUT:O PDIN1:I PDIN2:I
+x1 PDOUT PDIN1 PDIN2 VDD VSS sg13g2_xor2_1
+.ends
+
+
+* expanding   symbol:  CP.sym # of pins=3
+** sym_path: /foss/designs/IHP__QDLL6501/QDLL6501-main/schematic/xschem/CP.sym
+** sch_path: /foss/designs/IHP__QDLL6501/QDLL6501-main/schematic/xschem/CP.sch
+.subckt CP CPIN CPOUT VSS
+*.PININFO VSS:B CPIN:I CPOUT:O
+CC1 CPOUT VSS cap_cmim w=60e-6 l=20e-6
+x1 CPOUT CPIN VSS RES
+x2 VSS CPOUT VSS sg13g2_antennanp
+.ends
+
+
+* expanding   symbol:  sg13g2_inv_2.sym # of pins=2
+** sym_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sym/xschem/sg13g2_inv_2.sym
+** sch_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sch/xschem/sg13g2_inv_2.sch
+.subckt sg13g2_inv_2 Y A VDD VSS
+
+*.PININFO Y:O A:I
+MM1 Y A VSS VSS sg13_lv_nmos w=1.48u l=130.00n ng=2
+MM2 Y A VDD VDD sg13_lv_pmos w=2.24u l=130.00n ng=2
+.ends
+
+
+* expanding   symbol:  sg13g2_inv_4.sym # of pins=2
+** sym_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sym/xschem/sg13g2_inv_4.sym
+** sch_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sch/xschem/sg13g2_inv_4.sch
+.subckt sg13g2_inv_4 Y A VDD VSS
+
+*.PININFO A:I Y:O
+MM1 Y A VSS VSS sg13_lv_nmos w=2.96u l=130.00n ng=4
+MM2 Y A VDD VDD sg13_lv_pmos w=4.48u l=130.00n ng=4
+.ends
+
+
+* expanding   symbol:  sg13g2_inv_8.sym # of pins=2
+** sym_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sym/xschem/sg13g2_inv_8.sym
+** sch_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sch/xschem/sg13g2_inv_8.sch
+.subckt sg13g2_inv_8 Y A VDD VSS
+
+*.PININFO Y:O A:I
+MM1 Y A VSS VSS sg13_lv_nmos w=5.92u l=130.00n ng=8
+MM2 Y A VDD VDD sg13_lv_pmos w=8.96u l=130.00n ng=8
+.ends
+
+
+* expanding   symbol:  sg13g2_inv_16.sym # of pins=2
+** sym_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sym/xschem/sg13g2_inv_16.sym
+** sch_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sch/xschem/sg13g2_inv_16.sch
+.subckt sg13g2_inv_16 Y A VDD VSS
+
+*.PININFO Y:O A:I
+MM1 Y A VSS VSS sg13_lv_nmos w=11.84u l=130.00n ng=16
+MM2 Y A VDD VDD sg13_lv_pmos w=17.92u l=130.00n ng=16
+.ends
+
+
+* expanding   symbol:  sg13g2_dlygate4sd3_1.sym # of pins=2
+** sym_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sym/xschem/sg13g2_dlygate4sd3_1.sym
+** sch_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sch/xschem/sg13g2_dlygate4sd3_1.sch
+.subckt sg13g2_dlygate4sd3_1 X A VDD VSS
+
+*.PININFO A:I X:O
+MM1 net3 A VSS VSS sg13_lv_nmos w=420.00n l=130.00n ng=1
+MM2 net1 net3 VSS VSS sg13_lv_nmos w=420.00n l=500.0n ng=1
+MM3 net2 net1 VSS VSS sg13_lv_nmos w=420.00n l=500.0n ng=1
+MM4 X net2 VSS VSS sg13_lv_nmos w=740.00n l=130.00n ng=1
+MM5 net3 A VDD VDD sg13_lv_pmos w=420.00n l=130.00n ng=1
+MM6 net1 net3 VDD VDD sg13_lv_pmos w=1.000u l=500.0n ng=1
+MM7 net2 net1 VDD VDD sg13_lv_pmos w=1.000u l=500.0n ng=1
+MM8 X net2 VDD VDD sg13_lv_pmos w=1.12u l=130.00n ng=1
+.ends
+
+
+* expanding   symbol:  sg13g2_dlygate4sd2_1.sym # of pins=2
+** sym_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sym/xschem/sg13g2_dlygate4sd2_1.sym
+** sch_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sch/xschem/sg13g2_dlygate4sd2_1.sch
+.subckt sg13g2_dlygate4sd2_1 X A VDD VSS
+
+*.PININFO A:I X:O
+MM1 net2 A VSS VSS sg13_lv_nmos w=420.00n l=130.00n ng=1
+MM2 net1 net2 VSS VSS sg13_lv_nmos w=420.00n l=180.00n ng=1
+MM3 net3 net1 VSS VSS sg13_lv_nmos w=420.00n l=180.00n ng=1
+MM4 X net3 VSS VSS sg13_lv_nmos w=740.00n l=130.00n ng=1
+MM5 net2 A VDD VDD sg13_lv_pmos w=420.00n l=130.00n ng=1
+MM6 net1 net2 VDD VDD sg13_lv_pmos w=1.000u l=250.00n ng=1
+MM7 net3 net1 VDD VDD sg13_lv_pmos w=1.000u l=250.00n ng=1
+MM8 X net3 VDD VDD sg13_lv_pmos w=1.12u l=130.00n ng=1
+.ends
+
+
+* expanding   symbol:  sg13g2_xor2_1.sym # of pins=3
+** sym_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sym/xschem/sg13g2_xor2_1.sym
+** sch_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sch/xschem/sg13g2_xor2_1.sch
+.subckt sg13g2_xor2_1 X A B VDD VSS
+
+*.PININFO X:O B:I A:I
+MM1 net1 A VSS VSS sg13_lv_nmos w=550.00n l=130.00n ng=1
+MM2 net1 B VSS VSS sg13_lv_nmos w=550.00n l=130.00n ng=1
+MM3 X net1 VSS VSS sg13_lv_nmos w=740.00n l=130.00n ng=1
+MM4 X B net3 VSS sg13_lv_nmos w=740.00n l=130.00n ng=1
+MM5 net3 A VSS VSS sg13_lv_nmos w=740.00n l=130.00n ng=1
+MM6 net4 A VDD VDD sg13_lv_pmos w=1.000u l=130.00n ng=1
+MM7 net1 B net4 VDD sg13_lv_pmos w=1.000u l=130.00n ng=1
+MM8 net2 A VDD VDD sg13_lv_pmos w=1.12u l=130.00n ng=1
+MM9 X net1 net2 VDD sg13_lv_pmos w=1.12u l=130.00n ng=1
+MM10 net2 B VDD VDD sg13_lv_pmos w=1.12u l=130.00n ng=1
+.ends
+
+
+* expanding   symbol:  RES.sym # of pins=3
+** sym_path: /foss/designs/IHP__QDLL6501/QDLL6501-main/schematic/xschem/RES.sym
+** sch_path: /foss/designs/IHP__QDLL6501/QDLL6501-main/schematic/xschem/RES.sch
+.subckt RES ROUT RIN VSS
+*.PININFO RIN:I ROUT:O VSS:B
+RR13 net1 RIN 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR1 net2 net1 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR2 net3 net2 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR3 net4 net3 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR4 net5 net4 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR5 net6 net5 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR6 net7 net6 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR7 net8 net7 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR8 net9 net8 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR9 net10 net9 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR10 net11 net10 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+RR11 ROUT net11 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0
+.ends
+
+
+* expanding   symbol:  sg13g2_antennanp.sym # of pins=1
+** sym_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sym/xschem/sg13g2_antennanp.sym
+** sch_path: /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/sch/xschem/sg13g2_antennanp.sch
+.subckt sg13g2_antennanp A VDD VSS
+
+*.PININFO A:I
+DD1 VSS A dantenna l=0.78u w=0.78u
+DD2 A VDD dpantenna l=1.34u w=1.05u
+.ends
+

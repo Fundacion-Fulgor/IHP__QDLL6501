@@ -1,0 +1,20 @@
+11-Sep-2026 14:03:48 | INFO    | Your Klayout version is: KLayout 0.30.11 (required >= 0.30.5)
+11-Sep-2026 14:03:48 | INFO    | Running SG13G2 LVS checks on design /foss/designs/IHP__QDLL6501/QDLL6501-main/Layout/Layout_tests/QDLL_TOP_test.gds on cell QDLL_TOP
+11-Sep-2026 14:03:53 | INFO    | ==============================================================================
+11-Sep-2026 14:03:53 | INFO    | Important Summary
+11-Sep-2026 14:03:53 | INFO    | +------------------+--------------------------------------------------------------+
+11-Sep-2026 14:03:53 | INFO    | | Status           | PASS                                                         |
+11-Sep-2026 14:03:53 | INFO    | | Mode             | COMPARE                                                      |
+11-Sep-2026 14:03:53 | INFO    | | Outcome          | Comparison mode: PASS (netlists match).                      |
+11-Sep-2026 14:03:53 | INFO    | | Layout           | QDLL_TOP_test.gds                                            |
+11-Sep-2026 14:03:53 | INFO    | | Top Cell         | QDLL_TOP                                                     |
+11-Sep-2026 14:03:53 | INFO    | | Results Dir      | /foss/designs/IHP__QDLL6501/lvs                              |
+11-Sep-2026 14:03:53 | INFO    | | Warnings         | 0                                                            |
+11-Sep-2026 14:03:53 | INFO    | | Errors           | 3                                                            |
+11-Sep-2026 14:03:53 | INFO    | | Run Time (s)     | 5.214                                                        |
+11-Sep-2026 14:03:53 | INFO    | +------------------+--------------------------------------------------------------+
+11-Sep-2026 14:03:53 | ERROR   | Key errors:
+11-Sep-2026 14:03:53 | ERROR   |   - 2026-09-11 13:51:33 +0200: Memory Usage (484720K) : ERROR : Netlists don't match
+11-Sep-2026 14:03:53 | ERROR   |   - 2026-09-11 13:53:26 +0200: Memory Usage (485064K) : ERROR : Netlists don't match
+11-Sep-2026 14:03:53 | ERROR   |   - 2026-09-11 14:03:53 +0200: Memory Usage (484724K) : ERROR : Netlists don't match
+11-Sep-2026 14:03:53 | INFO    | ==============================================================================
