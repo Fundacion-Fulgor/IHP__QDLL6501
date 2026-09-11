@@ -1,0 +1,11 @@
+11-Sep-2026 14:17:10 | INFO    | KLayout version detected: 0.30.11 (required >= 0.30.5)
+11-Sep-2026 14:17:10 | INFO    | Using DRC JSON file: /foss/pdks/ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/sg13g2_tech_mod.json
+11-Sep-2026 14:17:10 | INFO    | Running IHP-SG13G2 main checks on design /foss/designs/IHP__QDLL6501/QDLL6501-main/Layout/Layout_tests/QDLL_TOP_test.gds, topcell: QDLL_TOP
+11-Sep-2026 14:17:18 | INFO    | Running IHP-SG13G2 antenna checks on design /foss/designs/IHP__QDLL6501/QDLL6501-main/Layout/Layout_tests/QDLL_TOP_test.gds, topcell: QDLL_TOP
+11-Sep-2026 14:17:21 | INFO    | Completed running Antenna checks.
+11-Sep-2026 14:17:21 | INFO    | Running IHP-SG13G2 sg13g2_maximal checks on design /foss/designs/IHP__QDLL6501/QDLL6501-main/Layout/Layout_tests/QDLL_TOP_test.gds, topcell: QDLL_TOP
+11-Sep-2026 14:17:34 | INFO    | Completed running Sg13g2_maximal checks.
+11-Sep-2026 14:17:34 | INFO    | =====================================================================================
+11-Sep-2026 14:17:34 | INFO    | ✅ --- KLayout DRC Check Passed: No DRC violations detected in the layout. --- ✅
+11-Sep-2026 14:17:34 | INFO    | =====================================================================================
+11-Sep-2026 14:17:34 | INFO    | Total DRC Run time: 23.57 seconds (including execution, analysis, and reporting)
