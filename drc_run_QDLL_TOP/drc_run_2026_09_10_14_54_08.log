@@ -1,0 +1,15 @@
+10-Sep-2026 16:54:08 | INFO    | KLayout version detected: 0.30.11 (required >= 0.30.5)
+10-Sep-2026 16:54:08 | INFO    | Using DRC JSON file: /foss/pdks/ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/sg13g2_tech_mod.json
+10-Sep-2026 16:54:08 | INFO    | Running IHP-SG13G2 main checks on design /foss/designs/IHP__QDLL6501/QDLL6501-main/Layout/Layout_tests/QDLL_TOP_test.gds, topcell: QDLL_TOP
+10-Sep-2026 16:54:17 | INFO    | Running IHP-SG13G2 antenna checks on design /foss/designs/IHP__QDLL6501/QDLL6501-main/Layout/Layout_tests/QDLL_TOP_test.gds, topcell: QDLL_TOP
+10-Sep-2026 16:54:19 | INFO    | Completed running Antenna checks.
+10-Sep-2026 16:54:19 | INFO    | Running IHP-SG13G2 density checks on design /foss/designs/IHP__QDLL6501/QDLL6501-main/Layout/Layout_tests/QDLL_TOP_test.gds, topcell: QDLL_TOP
+10-Sep-2026 16:54:22 | INFO    | Completed running Density checks.
+10-Sep-2026 16:54:22 | INFO    | Running IHP-SG13G2 sg13g2_maximal checks on design /foss/designs/IHP__QDLL6501/QDLL6501-main/Layout/Layout_tests/QDLL_TOP_test.gds, topcell: QDLL_TOP
+10-Sep-2026 16:54:35 | INFO    | Completed running Sg13g2_maximal checks.
+10-Sep-2026 16:54:35 | ERROR   | ==================================================================================
+10-Sep-2026 16:54:35 | ERROR   | ❌ --- KLayout DRC Check Failed: Violations were detected in the layout. --- ❌
+10-Sep-2026 16:54:35 | ERROR   | ==================================================================================
+10-Sep-2026 16:54:35 | ERROR   | Violated rules are : {'M2.b', 'M2.e', 'AFil.g', 'M2.j', 'TM2.c', 'M1.j', 'M5.j', 'GFil.g', 'Ant.b_TopMetal2', 'Ant.b_TopMetal1', 'TM1.c', 'M3.j', 'TM2.b', 'M4.j'}
+
+10-Sep-2026 16:54:35 | INFO    | Total DRC Run time: 26.75 seconds (including execution, analysis, and reporting)
