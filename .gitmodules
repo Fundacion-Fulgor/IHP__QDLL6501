@@ -4,8 +4,8 @@
 	branch = dev
 [submodule "openpdk-libraries"]
 	path = openpdk-libraries
-	url = https://github.com/openic-org/openpdk-libraries.git
-	branch = main
+	url = https://github.com/matebuteler/openpdk-libraries.git
+	branch = experiment/ihp-gds-extraction
 [submodule "QDLL6501-main/Layout/logo/artistic"]
 	path = QDLL6501-main/Layout/logo/artistic
 	url = https://github.com/pulp-platform/artistic.git
