@@ -5,7 +5,6 @@ V {}
 S {}
 F {}
 E {}
-N -0 160 0 170 {lab=VSS}
 N -0 0 0 40 {lab=CPOUT}
 N 100 0 100 40 {lab=CPOUT}
 N 100 100 100 150 {lab=VSS}
@@ -19,8 +18,7 @@ N 100 150 240 150 {lab=VSS}
 N -750 0 -680 0 {lab=CPIN}
 N -0 0 100 -0 {lab=CPOUT}
 N -490 0 -0 0 {lab=CPOUT}
-N -100 160 -0 160 {lab=VSS}
-N 0 150 -0 160 {lab=VSS}
+N 0 150 0 170 {lab=VSS}
 C {sg13g2_pr/cap_cmim.sym} 0 70 0 0 {name=C1
 model=cap_cmim
 w=60e-6
@@ -47,4 +45,3 @@ spiceprefix=X
 spice_ignore=true}
 C {RES.sym} -580 0 0 0 {name=x1}
 C {lab_pin.sym} -580 40 1 0 {name=p4 sig_type=std_logic lab=VSS}
-C {sg13g2_antennanp.sym} -100 70 3 0 {name=x2 VDD=CPOUT VSS=VSS prefix=sg13g2_ }

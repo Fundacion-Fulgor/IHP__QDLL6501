@@ -1,8 +1,9 @@
-v {xschem version=3.4.6 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 N -170 410 -170 480 {lab=VCONT2}
 N 290 580 290 650 {lab=CPOUT2}
@@ -23,20 +24,20 @@ N 310 -640 380 -640 {lab=OUT1}
 N -320 -180 380 -180 {lab=OUT1}
 N -320 -640 -250 -640 {lab=IN1}
 N -100 -570 160 -570 {lab=VSS}
-N -180 -570 -180 -490 {lab=#net3}
+N -180 -570 -180 -490 {lab=VCONT}
 N 160 -580 160 -570 {lab=VSS}
 N -100 -570 -100 -540 {lab=VSS}
 N 160 -570 160 -540 {lab=VSS}
 N -320 -350 -220 -350 {lab=IN1}
-N -180 -490 280 -490 {lab=#net3}
-N 280 -490 280 -330 {lab=#net3}
-N 230 -330 280 -330 {lab=#net3}
+N -180 -490 280 -490 {lab=VCONT}
+N 280 -490 280 -330 {lab=VCONT}
+N 230 -330 280 -330 {lab=VCONT}
 N -320 -310 -320 -180 {lab=OUT1}
 N 380 -640 380 -180 {lab=OUT1}
 N -320 -640 -320 -350 {lab=IN1}
 N -410 -640 -320 -640 {lab=IN1}
-N -20 340 20 340 {lab=#net4}
-N -10 650 40 650 {lab=#net5}
+N -20 340 20 340 {lab=#net3}
+N -10 650 40 650 {lab=#net4}
 N -110 540 -110 570 {lab=VDD}
 N 140 730 140 770 {lab=VSS}
 N -110 730 -110 770 {lab=VSS}
@@ -59,9 +60,10 @@ N -400 340 -310 340 {lab=IN2}
 N 390 340 460 340 {lab=OUT2}
 N -310 670 -210 670 {lab=OUT2}
 N -320 -310 -220 -310 {lab=OUT1}
-C {iopin.sym} -720 -490 2 0 {name=p1 lab=VDD
-}
-C {iopin.sym} -720 -460 2 0 {name=p2 lab=VSS}
+N -720 -380 -670 -380 {lab=VDD}
+N -720 -320 -670 -320 {lab=VSS}
+N -800 -250 -760 -250 {lab=VCONT}
+N -800 -190 -760 -190 {lab=VCONT}
 C {ipin.sym} -410 -640 0 0 {name=p7 lab=IN1}
 C {ipin.sym} -400 340 0 0 {name=p8 lab=IN2}
 C {opin.sym} 440 -640 0 0 {name=p11 lab=OUT1}
@@ -95,3 +97,18 @@ C {PD.sym} -110 650 0 0 {name=x6}
 C {PD.sym} -120 -330 0 0 {name=x7}
 C {CP.sym} 130 -330 0 0 {name=x8}
 C {CP.sym} 140 650 0 0 {name=x9}
+C {lab_pin.sym} 280 -490 2 0 {name=p3 sig_type=std_logic lab=VCONT}
+C {iopin.sym} -720 -380 2 0 {name=p4 lab=VDD
+}
+C {iopin.sym} -720 -320 2 0 {name=p5 lab=VSS}
+C {sg13g2_pr/cap_cmim.sym} -670 -350 0 0 {name=C1
+model=cap_cmim
+w=25.5e-6
+l=6.99e-6
+m=1
+spiceprefix=X
+}
+C {sg13g2_antennanp.sym} -670 -250 0 0 {name=x10 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {sg13g2_antennanp.sym} -670 -190 0 0 {name=x11 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {lab_pin.sym} -800 -250 0 0 {name=p1 sig_type=std_logic lab=VCONT}
+C {lab_pin.sym} -800 -190 0 0 {name=p2 sig_type=std_logic lab=VCONT2}

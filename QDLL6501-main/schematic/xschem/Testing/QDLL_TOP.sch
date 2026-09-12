@@ -29,7 +29,6 @@ N 160 -580 160 -570 {lab=VSS}
 N -100 -570 -100 -540 {lab=VSS}
 N 160 -570 160 -540 {lab=VSS}
 N -320 -350 -220 -350 {lab=IN1}
-N -180 -490 280 -490 {lab=#net3}
 N 280 -490 280 -330 {lab=#net3}
 N 230 -330 280 -330 {lab=#net3}
 N -320 -310 -320 -180 {lab=OUT1}
@@ -62,6 +61,10 @@ N -310 670 -210 670 {lab=OUT2}
 N -320 -310 -220 -310 {lab=OUT1}
 N -720 -500 -670 -500 {lab=VDD}
 N -720 -440 -670 -440 {lab=VSS}
+N -690 -280 -650 -280 {lab=VCONT}
+N -690 -220 -650 -220 {lab=VCONT2}
+N -180 -490 280 -490 {lab=VCONT}
+N -210 -490 -180 -490 {lab=VCONT}
 C {iopin.sym} -720 -500 2 0 {name=p1 lab=VDD
 }
 C {iopin.sym} -720 -440 2 0 {name=p2 lab=VSS}
@@ -105,3 +108,8 @@ l=6.99e-6
 m=1
 spiceprefix=X
 }
+C {sg13g2_antennanp.sym} -560 -280 0 0 {name=x10 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {sg13g2_antennanp.sym} -560 -220 0 0 {name=x11 VDD=VDD VSS=VSS prefix=sg13g2_ }
+C {lab_pin.sym} -690 -280 0 0 {name=p3 sig_type=std_logic lab=VCONT}
+C {lab_pin.sym} -690 -220 0 0 {name=p4 sig_type=std_logic lab=VCONT2}
+C {lab_pin.sym} -210 -490 0 0 {name=p5 sig_type=std_logic lab=VCONT}

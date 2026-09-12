@@ -1,0 +1,17 @@
+06-Sep-2026 01:33:02 | ERROR   | Could not read klayout version from /opt/pdks/versions.txt: [Errno 2] No such file or directory: '/opt/pdks/versions.txt'
+06-Sep-2026 01:33:02 | INFO    | ==============================================================================
+06-Sep-2026 01:33:02 | INFO    | Important Summary
+06-Sep-2026 01:33:02 | INFO    | +------------------+----------------------------------------------------------------------------------------------------------+
+06-Sep-2026 01:33:02 | INFO    | | Status           | UNKNOWN                                                                                                  |
+06-Sep-2026 01:33:02 | INFO    | | Mode             | COMPARE                                                                                                  |
+06-Sep-2026 01:33:02 | INFO    | | Outcome          | Comparison mode: outcome unknown (layout log not found).                                                 |
+06-Sep-2026 01:33:02 | INFO    | | Layout           | QDLL_TOP.gds                                                                                             |
+06-Sep-2026 01:33:02 | INFO    | | Top Cell         | QDLL_TOP                                                                                                 |
+06-Sep-2026 01:33:02 | INFO    | | Results Dir      | /home/designer/designs/libs/IHP__MPC0349/dependencies/IHP__QDLL6501/lvs_run_QDLL_TOP_2026_09_06_01_33_02 |
+06-Sep-2026 01:33:02 | INFO    | | Warnings         | 0                                                                                                        |
+06-Sep-2026 01:33:02 | INFO    | | Errors           | 1                                                                                                        |
+06-Sep-2026 01:33:02 | INFO    | | Run Time (s)     | 0.005                                                                                                    |
+06-Sep-2026 01:33:02 | INFO    | +------------------+----------------------------------------------------------------------------------------------------------+
+06-Sep-2026 01:33:02 | ERROR   | Key errors:
+06-Sep-2026 01:33:02 | ERROR   |   - Could not read klayout version from /opt/pdks/versions.txt: [Errno 2] No such file or directory: '/opt/pdks/versions.txt'
+06-Sep-2026 01:33:02 | INFO    | ==============================================================================
