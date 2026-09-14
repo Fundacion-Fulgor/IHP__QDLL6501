@@ -1,0 +1,3 @@
+#!/bin/sh
+root="$(git rev-parse --show-toplevel)"
+exec python3 "$root/scripts/fix_xschem_paths.py" --staged
