@@ -8,11 +8,11 @@
   "sealring_x": 1.0,
   "sealring_y": 1.0,
   "repository": "https://github.com/Fundacion-Fulgor/IHP__QDLL6501",
-  "pdk_version": "cfc0e22b92306178ebb5a5bc4865afe3294654d0",
+  "pdk_version": "22f43352dd8219f9007eb659e422e0d5fe28c5fb",
   "process": "SG13CMOS",
   "dependencies": {
-    "IHP-Open-PDK": "cfc0e22b92306178ebb5a5bc4865afe3294654d0",
-    "openpdk-libraries": "7d06b8ac9b453522ad6775bf5da16c8226616f52",
+    "IHP-Open-PDK": "22f43352dd8219f9007eb659e422e0d5fe28c5fb",
+    "openpdk-libraries": "a1504462643215a5b5a4ffe4ac366787489b9a17",
     "QDLL6501-main/Layout/logo/artistic": "31277dfbcb5f15d219c9834bc9e6f1c9b4705bf3"
   },
   "tools": {
@@ -21,8 +21,8 @@
   },
   "top_cell_name": "QDLL_TOP",
   "release": {
-    "version": "v.1.0.0",
-    "gds": "release/v.1.0.0/gds",
+    "version": "v.2.0.0",
+    "gds": "release/v.2.0.0/gds",
     "netlist": "release/v.1.0.0/netlist",
     "doc": "release/v.1.0.0/doc"
   }

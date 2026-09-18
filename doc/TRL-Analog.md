@@ -1,13 +1,14 @@
 # QDLL6501 analog/mixed-signal TRL assessment
 
 Reviewed on 2026-09-18 against source revision
-`00155c5401feb180eba1e244077bb0e48190fef6` and release `v.1.0.0`.
+`227f809efd0bbee771a714ff6b9c48f825c4f215` and release `v.2.0.0`
+(commit `b5cb328`).
 
 The self-assessed maturity is **TRL 3: schematic proof of concept**.
-Schematic simulation and a physical implementation are available, including
-saved DRC and device-level LVS passes. Full electrical qualification,
-validated parasitic extraction and post-layout PVT characterization remain
-incomplete. There is no silicon-validation claim.
+Schematic simulation and an updated physical implementation are available,
+including device-level LVS passes on the v2 layout test. Full electrical
+qualification, validated parasitic extraction and post-layout PVT
+characterization remain incomplete. There is no silicon-validation claim.
 
 This assessment uses the requested `TRL-Analog.md` filename. QDLL combines
 analog control and digital delay cells, so [info.json](info.json) retains
@@ -36,6 +37,7 @@ of supply, clock and analog-control ports.
 ## TRL 3: schematic proof of concept
 
 - [x] Transistor-level analog and gate-level digital schematics supplied in [the schematic directory](../QDLL6501-main/schematic/xschem/).
+- [x] Decoupling capacitor `CC1` and antenna diodes `x10` and `x11` integrated into the v2 schematic netlist.
 - [x] Device, standard-cell and IO-view dependencies identified and pinned through parent gitlinks.
 - [x] Core port functions, signal polarity and intended supply domain documented.
 - [x] Schematic testbenches and reproduction commands supplied.
@@ -64,23 +66,20 @@ before its numbers can be used as output specifications.
 
 ## TRL 5: layout and post-layout validation
 
-- [x] [Release layout](../release/v.1.0.0/gds/QDLL_TOP.gds) and [device-level extracted netlist](../lvs/QDLL_TOP_extracted.cir) available.
-- [x] [Saved DRC run](../drc/drc_run_2026_09_09_20_59_08.log) reports zero violations for its selected main, antenna and maximal checks.
-- [x] Final execution in [the cumulative LVS log](../lvs/QDLL_TOP.log) reports matching netlists.
-- [ ] Release GDS, schematic/netlist, pinned verification deck and reports archived as one reproducible, consistent signoff set.
+- [x] [Release v2.0.0 layout](../release/v.2.0.0/gds/QDLL_TOP.gds) and updated schematic netlist [simulation/QDLL_TOP.spice](../QDLL6501-main/schematic/xschem/simulation/QDLL_TOP.spice) available.
+- [x] Device-level LVS passes on the v2 layout test `QDLL_TOP_test.gds` ([lvs_run_2026_09_11_12_12_30.log](../lvs/lvs_run_2026_09_11_12_12_30.log)).
+- [ ] Archived DRC runset report specifically for `release/v.2.0.0/gds/QDLL_TOP.gds` generated and stored in `drc/`.
+- [ ] Release GDS, schematic netlist, pinned verification deck and reports archived together; standalone `netlist/` and `doc/` directories in `release/v.2.0.0/` populated.
 - [ ] Validated parasitic RC extraction and simulator-ready PEX netlist available.
 - [ ] Post-layout PVT characterization, including IO/interconnect loading, completed.
 - [ ] Full-chip supply connectivity, pads, fill/density, sealring and logo ground/opening geometry verified.
 
-The DRC log uses container PDK data under `/foss/pdks` without a recorded
-commit match to the repository pin. An older DRC report beside the GDS still
-contains errors. The LVS summary counts three earlier failures from appended
-runs, while the final run at 23:05:46 on 2026-09-09 passes. These are saved
-verification results, not new runs performed for this assessment.
-
-`QDLL_TOP_extracted.cir` contains extracted devices for LVS; it is not a
-validated parasitic RC netlist. Exploratory IO-cell PEX work or published
-Liberty data cannot substitute for full-core post-layout validation.
+Development commits report clean main, antenna and maximal DRC during layout
+routing. An archived runset report specifically for `release/v.2.0.0/gds/QDLL_TOP.gds`
+remains to be stored in `drc/`. `QDLL_TOP_extracted.cir` and `QDLL_TOP_test_extracted.cir`
+contain extracted devices for LVS; they are not validated parasitic RC netlists.
+Exploratory IO-cell PEX work or published Liberty data cannot substitute for
+full-core post-layout validation.
 
 ## TRL 6: integration readiness
 
@@ -89,7 +88,7 @@ Liberty data cannot substitute for full-core post-layout validation.
 - [ ] Integration descriptors/models and system-level checks completed.
 - [ ] Final release acceptance and tapeout review recorded.
 
-The release cell has no EdgeSeal geometry. Its 918.035 µm by 504.530 µm
+The release cell has no EdgeSeal geometry. Its 918.035 µm by 516.800 µm
 bounding box includes artwork and is not a verified sealed-die dimension.
 The standalone logo generator's passivation openings and ground routing
 remain pending.
@@ -114,7 +113,8 @@ remain pending.
 
 1. Define the remaining electrical limits, repair the phase/jitter analysis and
    archive reproducible schematic PVT and mismatch results.
-2. Regenerate and verify a consistent release with explicit PDK/deck provenance,
-   then validate parasitic extraction and run post-layout characterization.
+2. Generate an archived DRC runset report for `release/v.2.0.0/gds/QDLL_TOP.gds`,
+   populate `release/v.2.0.0/netlist/` and `release/v.2.0.0/doc/`, validate parasitic
+   extraction, and run post-layout characterization.
 3. Complete pad, ground, sealring, fill and artwork integration before claiming
    full-chip signoff; fabrication and measured silicon results follow that work.

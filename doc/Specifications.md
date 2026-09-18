@@ -3,9 +3,8 @@
 ## Baseline and interpretation
 
 Reviewed on 2026-09-18 against source revision
-`00155c5401feb180eba1e244077bb0e48190fef6` and the available `v.1.0.0`
-release. These requirements describe the checked-out design, not newer
-unmerged changes on `origin/main`.
+`227f809efd0bbee771a714ff6b9c48f825c4f215` and release `v.2.0.0`
+(commit `b5cb328`).
 
 [Datasheet](Datasheet.md) records the interface and nominal simulation
 snapshot. [TRL assessment](TRL-Analog.md) records maturity and missing
@@ -20,6 +19,9 @@ is explicitly identified. No silicon ratings are claimed.
 | `DLine` | `sg13g2_dlygate4sd3_1`, `sg13g2_dlygate4sd2_1`, then `sg13g2_inv_4`, `sg13g2_inv_8`, `sg13g2_inv_16` | Check delay, slew, pulse width and swing under the specified load |
 | `PD` | `sg13g2_xor2_1` phase detector | Characterize the average output versus phase and duty cycle |
 | `CP` | Passive RC low-pass filter: twelve series 1 µm by 10 µm `rppd` resistors and one enabled 60 µm by 20 µm `cap_cmim` | Establish ripple, settling and PVT sensitivity; this is not a switched charge pump |
+| `C1` decoupling | Supply decoupling capacitor `CC1` (`cap_cmim`, 25.5 µm by 6.99 µm, ~267 fF) between `VDD` and `VSS` | Verify supply decoupling and noise suppression |
+| Antenna diodes | Diodes `x10` and `x11` (`sg13g2_antennanp`) on `VCONT` and `VCONT2` | Confirm antenna DRC rule compliance on gate-connected nets |
+| Widened routing | Widened M3 and M4 interconnect lines (0.5 to 1.0 µm) on clock and control paths | Check reduced IR drop, electromigration margin and delay impact |
 | `IN1` to `OUT1` | Internally controlled, non-inverting DLL path | Target 90 ± 5 degrees delay at the specified input frequencies |
 | `IN2` to `OUT2` | Non-inverting path with external `VCONT2` and separate `CPOUT2` monitor | Characterize open-loop tuning and filtered detector response |
 | `IN3` to `OUT3` | Inverting, full-strength fixed-delay monitor | Meet the OUT3 limits below; no `DLineLP` is used |
@@ -32,6 +34,7 @@ These relations explain the design intent; they do not prove the achieved
 closed-loop phase or acquisition range.
 
 Sources: [QDLL_TOP.sch](../QDLL6501-main/schematic/xschem/QDLL_TOP.sch),
+[simulation/QDLL_TOP.spice](../QDLL6501-main/schematic/xschem/simulation/QDLL_TOP.spice),
 [VCDL.sch](../QDLL6501-main/schematic/xschem/VCDL.sch),
 [DLine.sch](../QDLL6501-main/schematic/xschem/DLine.sch),
 [PD.sch](../QDLL6501-main/schematic/xschem/PD.sch),
@@ -109,44 +112,32 @@ time bases must be fixed and verified before publishing closed-loop results.
 
 | Requirement | Evidence or remaining work |
 | --- | --- |
-| Core layout available | `release/v.1.0.0/gds/QDLL_TOP.gds`, top cell `QDLL_TOP` |
-| Layout size recorded | Bounding box 918.035 µm by 504.530 µm including logo; no sealring in this cell |
-| DRC | The saved 2026-09-09 main, antenna and maximal run reports zero violations; retain its deck/configuration qualification |
-| LVS | Final 2026-09-09 device-level comparison matches; earlier failures remain in the cumulative log |
-| Release consistency | Reconcile the older failing DRC report beside the GDS, source schematics and release netlists; archive hashes and fresh reports together |
+| Core layout available | `release/v.2.0.0/gds/QDLL_TOP.gds`, top cell `QDLL_TOP` |
+| Layout size recorded | Bounding box 918.035 µm by 516.800 µm including logo; no sealring in this cell |
+| DRC | Development commits report clean main, antenna, and maximal DRC; archived report in `drc/` specifically for `release/v.2.0.0/gds/QDLL_TOP.gds` is pending |
+| LVS | Passed on the v2 layout test `QDLL_TOP_test.gds` (`lvs_run_2026_09_11_12_12_30.log`); netlists match against schematic |
+| Release consistency | `release/v.2.0.0/` contains `gds/QDLL_TOP.gds`; standalone `netlist/` and `doc/` directories under `release/v.2.0.0/` remain to be populated |
 | Parasitic extraction | Produce and validate a simulator-ready parasitic RC netlist; an LVS device netlist is insufficient |
 | Post-layout characterization | Repeat phase, tuning, power and timing checks across PVT with pad/interconnect loading |
 | Full-chip integration | Verify pads, supply/substrate connectivity, sealring, fill/density and integration-level DRC/LVS |
-| Logo integration | The standalone generator currently emits only TopMetal2; ground routing and legal passivation openings still require implementation and verification |
+| Logo integration | The standalone generator writes TopMetal2; ground routing and legal passivation openings still require implementation and verification |
 | Fabrication and measurements | No silicon-validation evidence in this snapshot |
 
-The passing [DRC log](../drc/drc_run_2026_09_09_20_59_08.log) identifies
-KLayout 0.30.11 and `/foss/pdks/.../sg13g2_tech_mod.json`; it does not record
-an exact match to the pinned PDK commit. Its main log records
-`PreCheck DRC enabled: false`. This mode setting alone does not establish
-whether all submission checks were covered; check the selected runsets
-against the required tapeout checks before signoff. The antenna log also
-records fallback rule values. Saved block-level checks are not full-chip
-foundry acceptance.
-
-The [release netlist](../release/v.1.0.0/netlist/QDLL_TOP.spice) contains
-LVS-oriented primitive device records and an older hierarchy. Generate
-simulation netlists from the current Xschem sources rather than treating
-that file, or [the LVS extraction](../lvs/QDLL_TOP_extracted.cir), as a
-validated ngspice PEX deck.
+The updated schematic netlist for `v.2.0.0` is tracked at
+[simulation/QDLL_TOP.spice](../QDLL6501-main/schematic/xschem/simulation/QDLL_TOP.spice).
+It includes decoupling capacitor `CC1` and antenna protection diodes `x10` and `x11`.
 
 ## Dependencies and tool provenance
 
 | Dependency | Pinned revision in the reviewed parent commit |
 | --- | --- |
-| `IHP-Open-PDK` | `cfc0e22b92306178ebb5a5bc4865afe3294654d0` |
-| `openpdk-libraries` | `7d06b8ac9b453522ad6775bf5da16c8226616f52` |
+| `IHP-Open-PDK` | `22f43352dd8219f9007eb659e422e0d5fe28c5fb` |
+| `openpdk-libraries` | `a1504462643215a5b5a4ffe4ac366787489b9a17` |
 | Logo `artistic` submodule | `31277dfbcb5f15d219c9834bc9e6f1c9b4705bf3` |
 
 The PDK supplies device models and `sg13g2_stdcell`; `openpdk-libraries`
-supplies IO schematic/symbol views. These pins describe the parent repository
-baseline, not uncommitted changes inside dependencies. Use `.gitmodules` and
-the parent gitlinks to reproduce it.
+supplies IO schematic/symbol views. Use `.gitmodules` and the parent gitlinks
+to reproduce this baseline.
 
 CACE 2.9.0 is recorded in the project setup. KLayout 0.30.11 is recorded in
 the saved DRC/LVS runs. Xschem and ngspice with OSDI/PSP103 support are required

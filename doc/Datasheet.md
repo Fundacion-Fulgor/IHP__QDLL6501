@@ -3,16 +3,18 @@
 ## Document scope
 
 This preliminary datasheet describes the checked-out design at source revision
-`00155c5401feb180eba1e244077bb0e48190fef6`, reviewed on 2026-09-18.
-The available release is `v.1.0.0`. Later changes on `origin/main` are outside
-this snapshot. Electrical values below are simulation results or design targets,
-not silicon measurements or guaranteed operating limits.
+`227f809efd0bbee771a714ff6b9c48f825c4f215`, reviewed on 2026-09-18.
+The current release is `v.2.0.0` (commit `b5cb328`). Electrical values below
+are simulation results or design targets, not silicon measurements or
+guaranteed operating limits.
 
 | Item | Current value |
 | --- | --- |
 | Design | Quadrature delay-locked loop with externally controlled and fixed-delay test paths |
 | Technology | IHP SG13G2, 130 nm CMOS devices |
 | Core top cell | `QDLL_TOP` |
+| Release GDS | `release/v.2.0.0/gds/QDLL_TOP.gds` |
+| Release version | `v.2.0.0` |
 | Nominal core supply | 1.2 V relative to `VSS` |
 | Nominal input frequency | 250 MHz |
 | Clock interface | Single-ended CMOS |
@@ -37,6 +39,16 @@ The block named `CP` is a passive RC loop filter, not a switched charge pump.
 Its schematic uses twelve series `rppd` resistors, each 1 µm wide and 10 µm
 long, and one enabled 60 µm by 20 µm `cap_cmim`. The additional capacitor
 instances in `CP.sch` are marked `spice_ignore=true`.
+
+In `v.2.0.0`, the core schematic incorporates:
+1. A supply decoupling capacitor `C1` (`cap_cmim`, 25.5 µm by 6.99 µm, ~267 fF)
+   connected between `VDD` and `VSS`.
+2. Antenna protection diodes `x10` and `x11` (`sg13g2_antennanp`) connected on
+   the internal control net `VCONT` and pin `VCONT2`.
+3. Widened M3 and M4 interconnect lines (up to 0.5 to 1.0 µm) on critical clock
+   and control paths in the layout.
+4. TopMetal2 artwork logo without passivation opening (the opening layer was
+   removed in commit `8b6a6d2`).
 
 The first two paths are non-inverting overall. `OUT3` transitions with the
 opposite polarity to `IN3`. The core has no register interface, reset pin,
@@ -119,8 +131,8 @@ ratings; see the verification gaps in [Specifications](Specifications.md).
 
 ## Layout and verification
 
-The [release GDS](../release/v.1.0.0/gds/QDLL_TOP.gds) has a `QDLL_TOP`
-bounding box of 918.035 µm by 504.530 µm, including the logo and separated
+The [release v2.0.0 GDS](../release/v.2.0.0/gds/QDLL_TOP.gds) has a `QDLL_TOP`
+bounding box of 918.035 µm by 516.800 µm, including the logo and separated
 layout structures. This is neither the active circuit area nor a sealed die
 size. No `EdgeSeal.drawing` geometry (39/0) is present in this cell. The
 `sealring_x` and `sealring_y` values in [info.json](info.json) remain inherited
@@ -128,18 +140,19 @@ metadata, not verified sealring dimensions.
 
 | Check | Saved evidence | Qualification |
 | --- | --- | --- |
-| DRC | [2026-09-09 run log](../drc/drc_run_2026_09_09_20_59_08.log) reports zero violations for main, antenna and maximal checks | KLayout 0.30.11; uses container PDK data, not a recorded match to the pinned PDK revision |
-| LVS | Final execution in [QDLL_TOP.log](../lvs/QDLL_TOP.log) ends with `Netlists match` | Device/connectivity comparison only; the summary also contains errors from three earlier appended runs |
+| DRC | Main, antenna, and maximal checks were reported clean during layout development (commits `419f122` and `31010b4`) | Archived report in `drc/` dates to 2026-09-09 (`v.1.0.0`); an archived runset report specifically for `release/v.2.0.0/gds/QDLL_TOP.gds` is pending |
+| LVS | Final execution in [lvs_run_2026_09_11_12_12_30.log](../lvs/lvs_run_2026_09_11_12_12_30.log) ends with `Netlists match` | Device/connectivity comparison on the v2 layout basis (`QDLL_TOP_test.gds`); the summary also records errors from earlier appended runs |
 | PEX and post-layout timing | No validated full-core parasitic netlist and PVT result set identified | Pending |
 | Fabrication and silicon measurements | No supporting evidence in this snapshot | Not claimed |
 
-The older DRC report stored beside the release GDS still contains violations.
-The later passing report in `drc/` does not establish full-chip signoff:
-release artifact synchronization, pinned-deck verification, sealring/fill,
-pad integration and parasitic characterization still need a reproducible
-release-level check. The standalone logo generator currently writes only
-TopMetal2; its requested ground connection and passivation-opening feature
-are not implemented or qualified in this snapshot.
+Release artifact synchronization for `v.2.0.0` remains partial: `release/v.2.0.0/`
+currently contains `gds/QDLL_TOP.gds`; standalone `netlist/` and `doc/`
+directories under `release/v.2.0.0/` are not yet populated. The updated
+schematic netlist is tracked at
+[simulation/QDLL_TOP.spice](../QDLL6501-main/schematic/xschem/simulation/QDLL_TOP.spice).
+The standalone logo generator currently writes only TopMetal2; its requested
+ground connection and passivation-opening feature are not implemented or
+qualified in this snapshot.
 
 ## Reproducing characterization
 
