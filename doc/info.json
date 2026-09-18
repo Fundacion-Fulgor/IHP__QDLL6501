@@ -4,15 +4,20 @@
   "technology": "IHP",
   "unique_id": "6501",
   "license": "Apache-2.0",
-  "trl": 0,
+  "trl": 3,
   "sealring_x": 1.0,
   "sealring_y": 1.0,
-  "repository": "https://github.com/leonardovazquez/IHP__QDLL6501",
-  "pdk_version": "8d3ee38d4540ed675d3ac08332a51f75258fc3a7",
+  "repository": "https://github.com/Fundacion-Fulgor/IHP__QDLL6501",
+  "pdk_version": "cfc0e22b92306178ebb5a5bc4865afe3294654d0",
   "process": "SG13CMOS",
-  "dependencies": {},
+  "dependencies": {
+    "IHP-Open-PDK": "cfc0e22b92306178ebb5a5bc4865afe3294654d0",
+    "openpdk-libraries": "7d06b8ac9b453522ad6775bf5da16c8226616f52",
+    "QDLL6501-main/Layout/logo/artistic": "31277dfbcb5f15d219c9834bc9e6f1c9b4705bf3"
+  },
   "tools": {
-    "cace": "2.9.0"
+    "cace": "2.9.0",
+    "klayout": "0.30.11"
   },
   "top_cell_name": "QDLL_TOP",
   "release": {
