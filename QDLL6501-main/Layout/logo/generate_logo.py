@@ -54,7 +54,7 @@ def main():
         "-i",
         "--image",
         type=Path,
-        default=Path.home() / "Downloads" / "fulgor_edited_medium.jpg",
+        default=Path(__file__).parent / "fulgor_edited_medium.jpg",
     )
     parser.add_argument("-o", "--output", type=Path, default=Path("fulgor.gds"))
     args = parser.parse_args()
