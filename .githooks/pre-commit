@@ -1,3 +1,5 @@
 #!/bin/sh
+set -eu
 root="$(git rev-parse --show-toplevel)"
-exec python3 "$root/scripts/fix_xschem_paths.py" --staged
+python3 "$root/scripts/fix_xschem_paths.py" --staged || exit $?
+exec python3 "$root/scripts/check_xschem_paths.py" --staged

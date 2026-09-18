@@ -1,4 +1,4 @@
-** sch_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/VCDL.sch
+** sch_path: $SCRIPT_DIR/QDLL6501-main/schematic/xschem/VCDL.sch
 .subckt VCDL VDD VIN VOUT VCONT VSS
 *.PININFO VDD:B VSS:B VIN:I VCONT:I VOUT:O
 MM1 VOUT VIN net3 VSS sg13_lv_nmos w=2u l=0.13u ng=1

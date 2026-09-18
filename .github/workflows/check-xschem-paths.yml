@@ -1,0 +1,30 @@
+name: Check Xschem Paths
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check-xschem-paths:
+    name: Xschem path portability
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Run Xschem path fixer check
+        run: python3 scripts/fix_xschem_paths.py --all --check
+
+      - name: Run Xschem path portability check
+        run: python3 scripts/check_xschem_paths.py
+
+      - name: Run focused hook and path tests
+        run: python3 -m unittest tests/test_fix_xschem_paths.py tests/test_check_xschem_paths.py tests/test_install_hooks.py -v

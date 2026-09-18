@@ -1,4 +1,4 @@
-** sch_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/QDLL_TOP.sch
+** sch_path: $SCRIPT_DIR/QDLL6501-main/schematic/xschem/QDLL_TOP.sch
 .subckt QDLL_TOP VDD VSS IN1 OUT1 OUT2 IN2 CPOUT2 VCONT2 IN3 OUT3
 *.PININFO IN1:I IN2:I OUT1:O OUT2:O CPOUT2:O VCONT2:I OUT3:O IN3:I VDD:B VSS:B
 x2 VDD IN1 net1 VCONT VSS VCDL
@@ -16,8 +16,8 @@ x11 VCONT2 VDD VSS sg13g2_antennanp
 .ends
 
 * expanding   symbol:  VCDL.sym # of pins=5
-** sym_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/VCDL.sym
-** sch_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/VCDL.sch
+** sym_path: $SCRIPT_DIR/QDLL6501-main/schematic/xschem/VCDL.sym
+** sch_path: $SCRIPT_DIR/QDLL6501-main/schematic/xschem/VCDL.sch
 .subckt VCDL VDD VIN VOUT VCONT VSS
 *.PININFO VDD:B VSS:B VIN:I VCONT:I VOUT:O
 MM1 VOUT VIN net3 VSS sg13_lv_nmos w=2u l=0.13u ng=1
@@ -30,8 +30,8 @@ MM6 net1 net1 VDD VDD sg13_lv_pmos w=2.24u l=0.13u ng=1
 
 
 * expanding   symbol:  DLine.sym # of pins=4
-** sym_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/DLine.sym
-** sch_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/DLine.sch
+** sym_path: $SCRIPT_DIR/QDLL6501-main/schematic/xschem/DLine.sym
+** sch_path: $SCRIPT_DIR/QDLL6501-main/schematic/xschem/DLine.sch
 .subckt DLine VSS VDD VIN VOUT
 *.PININFO VOUT:O VIN:I VDD:B VSS:B
 x1 net4 net3 VDD VSS sg13g2_dlygate4sd2_1
@@ -43,8 +43,8 @@ x8 VOUT net2 VDD VSS sg13g2_inv_16
 
 
 * expanding   symbol:  PD.sym # of pins=5
-** sym_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/PD.sym
-** sch_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/PD.sch
+** sym_path: $SCRIPT_DIR/QDLL6501-main/schematic/xschem/PD.sym
+** sch_path: $SCRIPT_DIR/QDLL6501-main/schematic/xschem/PD.sch
 .subckt PD VDD VSS PDIN1 PDOUT PDIN2
 *.PININFO VDD:B VSS:B PDOUT:O PDIN1:I PDIN2:I
 x2 PDOUT PDIN1 PDIN2 VDD VSS sg13g2_xor2_1
@@ -52,8 +52,8 @@ x2 PDOUT PDIN1 PDIN2 VDD VSS sg13g2_xor2_1
 
 
 * expanding   symbol:  CP.sym # of pins=3
-** sym_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/CP.sym
-** sch_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/CP.sch
+** sym_path: $SCRIPT_DIR/QDLL6501-main/schematic/xschem/CP.sym
+** sch_path: $SCRIPT_DIR/QDLL6501-main/schematic/xschem/CP.sch
 .subckt CP CPIN CPOUT VSS
 *.PININFO VSS:B CPIN:I CPOUT:O
 CC1 CPOUT VSS cap_cmim w=60e-6 l=20e-6
@@ -159,8 +159,8 @@ MM10 net2 B VDD VDD sg13_lv_pmos w=1.12u l=130.00n ng=1
 
 
 * expanding   symbol:  RES.sym # of pins=3
-** sym_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/RES.sym
-** sch_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/RES.sch
+** sym_path: $SCRIPT_DIR/QDLL6501-main/schematic/xschem/RES.sym
+** sch_path: $SCRIPT_DIR/QDLL6501-main/schematic/xschem/RES.sch
 .subckt RES ROUT RIN VSS
 *.PININFO RIN:I ROUT:O VSS:B
 RR13 net1 RIN 2654.4930417495 $SUB=VSS $[rppd] w=1e-6 l=10e-6 b=0

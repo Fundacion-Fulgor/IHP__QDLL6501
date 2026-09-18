@@ -101,6 +101,30 @@ Reopen the latest results with `./plot-cace`, list available metrics with `./plo
 
 Xschem uses a valid external `PDK_ROOT` when supplied and otherwise falls back to the pinned `IHP-Open-PDK` dev submodule. SG13G2 IO-cell schematics and symbols come from the separately pinned `openpdk-libraries` submodule.
 
+## Pre-commit hook and path verification
+
+Install the pre-commit hook (once per clone):
+
+```bash
+python3 scripts/install_hooks.py
+```
+
+The installer safely upgrades exact known earlier hook revisions (including the original fixer-only hook), preserves custom hooks, symlinks, or custom `core.hooksPath`, and provides manual chaining instructions (`sh "$(git rev-parse --show-toplevel)/.githooks/pre-commit" || exit $?`).
+
+The pre-commit hook runs `scripts/fix_xschem_paths.py --staged` before `scripts/check_xschem_paths.py --staged`. The fixer rewrites an absolute Xschem symbol reference only for an exact tracked path or an explicitly supplied `--library-root`; unknown and ambiguous references abort for manual review.
+
+### Fixer CLI
+- `--staged`: inspects staged changes in the Git index (default mode).
+- `--check`: read-only check mode; exits with failure if fixes are required without modifying files.
+- `--all --check`: read-only full index scan across all tracked sources (requires `--check`).
+- `--library-root <dir>`: specifies an explicit installed library search root for resolution (repeatable).
+
+Safety and coverage rules:
+- **Safe partial staging refusal**: the fixer refuses to overwrite files that have unstaged modifications or mode changes in the working tree when fixes are needed.
+- **Never basename guess**: unresolved, ambiguous, or other-machine references require manual review or an explicit `--library-root`; the tool never guesses destinations from basename alone.
+- **Automatic rewriting coverage**: strictly scoped to component references (`C {path} ...`) plus proven repository provenance comments in `.spice`/`.cir` (`sch_path:` / `sym_path:`).
+- **Validation-only scope**: executable directives (`.include`, `.lib`, `source`, `load`, etc.), embedded Tcl scripts, and complex attributes remain checker validation-only; they are never automatically rewritten.
+
 ---
 
 ## 📐 QDLL Specifications

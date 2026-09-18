@@ -1,4 +1,4 @@
-** sch_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/DLine.sch
+** sch_path: $SCRIPT_DIR/QDLL6501-main/schematic/xschem/DLine.sch
 .subckt DLine VSS VDD VIN VOUT
 *.PININFO VOUT:O VIN:I VDD:B VSS:B
 x1 net4 net3 VDD VSS sg13g2_dlygate4sd2_1

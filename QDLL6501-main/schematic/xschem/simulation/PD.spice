@@ -1,4 +1,4 @@
-** sch_path: /home/eamtastudent/EAMTA2026-VLSI/examples/blocks/IHP__QDLL6501-main/QDLL6501-main/schematic/xschem/PD.sch
+** sch_path: $SCRIPT_DIR/QDLL6501-main/schematic/xschem/PD.sch
 .subckt PD VDD VSS PDIN1 PDOUT PDIN2
 *.PININFO VDD:B VSS:B PDOUT:O PDIN1:I PDIN2:I
 x2 PDOUT PDIN1 PDIN2 VDD VSS sg13g2_xor2_1
